@@ -69,7 +69,7 @@ const deleteCustomerHandler = async (req: Request, res: Response) => {
             if (deletedCustomer) {
                 return res.send(deletedCustomer)
             } else {
-                return res.send("no such dealer exits")
+                return res.send("no such customer exits")
             }
         }
     } catch (e: any) {

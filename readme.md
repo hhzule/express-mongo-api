@@ -6,9 +6,10 @@
 
 ```json
 {
-  "id": "123",
   "name":"Alton",
   "email" : "alton@gmail.com",
+  "company":"abc"
+
 
   }
 ```
@@ -47,13 +48,16 @@
 
 
 
-
+## An Admin can add, update, delete and view all the customers.
+_____________________________________________
+## An Admin can adjust the commission percentage/fee for dealer and client.
+_____________________________________________
 ## An Admin can see all watch details which are following:
 ## All watches in the system
-## An Admin can add, update, delete and view all the customers.
+
 ## An Admin can also perform all operations that a dealer can do (Point to be discussed with Client).
 ## Admin will authorize the watch entry or update.
 ## An Admin can see all the watches listed for purchase/sold/request for approval by the dealer
-## An Admin can adjust the commission percentage/fee for dealer and client.
+
 
 

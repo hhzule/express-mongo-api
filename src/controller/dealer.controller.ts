@@ -1,12 +1,7 @@
 import { Request, Response } from "express";
-import { omit } from "lodash";
 import mongoose from "mongoose";
-// import { CreateUserInput } from "../schema/user.schema";
-// import { createUser } from "../service/user.service";
 import logger from "../utils/logger";
 import DealerModel, { DealerDocument } from "../models/dealer.model";
-import exp from "constants";
-
 
 const createDealerHandler = async (req: Request, res: Response) => {
     console.log(req.body);
@@ -28,18 +23,6 @@ const getAllDealersHandler = async (req: Request, res: Response) => {
         return res.status(409).send(e.message);
     }
 };
-
-// export const getDealerHandler = async (req: Request, res: Response) => {
-//     const id = req.body.id;
-//     try {
-//         /**MongoDb call */
-//         const dealers = await DealerModel.findById(id)
-//         return res.send("user")
-//     } catch (e: any) {
-//         logger.error(e);
-//         return res.status(409).send(e.message);
-//     }
-// };
 
 const updateDealerHandler = async (req: Request, res: Response) => {
     const id = req.body._id;

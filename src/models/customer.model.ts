@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema(
     {
         email: { type: String, required: true, unique: true },
         name: { type: String, required: true },
-        // company: { type: String, required: true },
+        commision: { type: Number, required: true, default: 1 },
         // password: { type: String, required: true },
     },
     {

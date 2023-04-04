@@ -1,7 +1,7 @@
 import { Express, Request, Response } from 'express'
-import CustomerController from '../src/controller/customer.controller'
+import WatchController from '../src/controller/watch.controller'
 
-function customerRoutes(app: Express) {
+function watchRoutes(app: Express) {
     /**
       * @openapi
       * tags:
@@ -22,7 +22,7 @@ function customerRoutes(app: Express) {
       *       200:
       *         description: App is up and running
       */
-    app.get('/healthcheckcustomer', (req: Request, res: Response) => {
+    app.get('/healthcheckwatch', (req: Request, res: Response) => {
         res.sendStatus(200)
     })
     /**
@@ -52,10 +52,10 @@ function customerRoutes(app: Express) {
   *      400:
   *        description: Bad request
   */
-    app.post('/createcustomer', CustomerController.createCustomerHandler)
-    app.post('/updatecustomer', CustomerController.updateCustomerHandler)
-    app.post('/deletecustomer', CustomerController.deleteCustomerHandler)
-    app.get('/getcustomers', CustomerController.getAllCustomersHandler)
+    app.post('/createwatch', WatchController.createWatchHandler)
+    app.post('/updatewatch', WatchController.updateWatchHandler)
+    app.post('/deletewatch', WatchController.deleteWatchHandler)
+    app.get('/getwatches', WatchController.getAllWatchesHandler)
 }
 
-export default customerRoutes
+export default watchRoutes
