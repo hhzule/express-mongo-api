@@ -19,12 +19,13 @@ const userSchema = new mongoose.Schema(
         email: { type: String, required: true, unique: true },
         name: { type: String, required: true },
         commision: { type: Number, required: true, default: 1 },
-        // password: { type: String, required: true },
     },
     {
         timestamps: true,
     }
 );
+
+
 
 const CustomerModel = mongoose.model<CustomerDocument>("User", userSchema);
 

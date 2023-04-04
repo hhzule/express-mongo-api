@@ -7,7 +7,6 @@ import logger from "../utils/logger";
 import CustomerModel from "../models/customer.model";
 import exp from "constants";
 
-
 const createCustomerHandler = async (req: Request, res: Response) => {
     console.log(req.body);
     try { /**MongoDb call */
