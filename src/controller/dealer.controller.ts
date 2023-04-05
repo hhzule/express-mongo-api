@@ -1,13 +1,14 @@
 import { Request, Response } from "express";
 import mongoose from "mongoose";
 import logger from "../utils/logger";
+import { createDealer } from "../service/dealer.service"
 import DealerModel, { DealerDocument } from "../models/dealer.model";
 
 const createDealerHandler = async (req: Request, res: Response) => {
     console.log(req.body);
     if (req.body.auth) {
         try { /**MongoDb call */
-            const dealer = await DealerModel.create(req.body)
+            const dealer = await createDealer(req.body)
             return res.send(dealer)
         } catch (e: any) {
             logger.error(e);

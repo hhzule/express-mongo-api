@@ -3,12 +3,11 @@
  * @openapi
  * components:
  *  schemas:
- *    CreateDealerInput:
+ *    CreateCustomerInput:
  *      type: object
  *      required:
  *        - email
  *        - name
- *        - company
  *        - commision
  *      properties:
  *        email:
@@ -17,13 +16,10 @@
  *        name:
  *          type: string
  *          default: Jane Doe
- *        company:
- *          type: string
- *          default: ABC company
  *        commision:
  *          type: number
  *          default: 5
- *    CreateDealerResponse:
+ *    CreateCustomerResponse:
  *      type: object
  *      properties:
  *        email:
@@ -31,8 +27,6 @@
  *        name:
  *          type: string
  *        _id:
- *          type: string
- *        company:
  *          type: string
  *        commission:
  *          type: string

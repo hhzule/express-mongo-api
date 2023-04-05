@@ -5,7 +5,9 @@ import config from "config";
 export interface DealerInput {
     email: string;
     name: string;
-    password: string;
+    company: string;
+    commision: number
+
 }
 
 export interface DealerDocument extends DealerInput, mongoose.Document {
@@ -20,13 +22,13 @@ const userSchema = new mongoose.Schema(
         name: { type: String, required: true },
         company: { type: String, required: true },
         commision: { type: Number, required: true, default: 1 },
-        // password: { type: String, required: true },
+
     },
     {
         timestamps: true,
     }
 );
 
-const DealerModel = mongoose.model<DealerDocument>("User", userSchema);
+const DealerModel = mongoose.model<DealerDocument>("Dealer", userSchema);
 
 export default DealerModel;

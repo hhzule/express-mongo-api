@@ -1,6 +1,4 @@
 import mongoose from "mongoose";
-import bcrypt from "bcrypt";
-import config from "config";
 
 export interface CustomerInput {
     email: string;
@@ -11,7 +9,6 @@ export interface CustomerInput {
 export interface CustomerDocument extends CustomerInput, mongoose.Document {
     createdAt: Date;
     updatedAt: Date;
-    // comparePassword(candidatePassword: string): Promise<Boolean>;
 }
 
 const userSchema = new mongoose.Schema(
@@ -27,6 +24,6 @@ const userSchema = new mongoose.Schema(
 
 
 
-const CustomerModel = mongoose.model<CustomerDocument>("User", userSchema);
+const CustomerModel = mongoose.model<CustomerDocument>("Customer", userSchema);
 
 export default CustomerModel;

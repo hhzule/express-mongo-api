@@ -27,6 +27,6 @@ const userSchema = new mongoose.Schema(
     }
 );
 
-const WatchModel = mongoose.model<WatchDocument>("User", userSchema);
+const WatchModel = mongoose.model<WatchDocument>("Watch", userSchema);
 
 export default WatchModel;

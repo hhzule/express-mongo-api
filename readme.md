@@ -52,12 +52,11 @@
 _____________________________________________
 ## An Admin can adjust the commission percentage/fee for dealer and client.
 _____________________________________________
-## An Admin can see all watch details which are following:
-## All watches in the system
-
-## An Admin can also perform all operations that a dealer can do (Point to be discussed with Client).
+## An Admin can see, all watch details which are following:
+### All watches in the system
+### An Admin can see all the watches listed for purchase/sold/request for approval by the dealer
+____________________________________________
 ## Admin will authorize the watch entry or update.
-## An Admin can see all the watches listed for purchase/sold/request for approval by the dealer
-
-
-
+____________________________________________
+____________________________________________
+## An Admin can also perform all operations that a dealer can do (Point to be discussed with Client).

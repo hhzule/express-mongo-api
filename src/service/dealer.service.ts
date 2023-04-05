@@ -1,13 +1,12 @@
-// import { HydratedDocument } from 'mongoose'
-// import DealerModel, { DealerModel } from "../models/user.model";
 
-// export async function createUser(
-//     input: Omit<UserDocument, "createdAt" | "updatedAt">) {
-//     try {
-//         console.log("service", input)
-//         return await UserModel.create(input)
-//     } catch (e: any) {
-//         throw new Error()
+import { omit } from "lodash";
+import DealerModel, { DealerDocument, DealerInput } from "../models/dealer.model";
 
-//     }
-// }
+export async function createDealer(input: DealerInput) {
+    try {
+        const user = await DealerModel.create(input);
+        return user
+    } catch (e: any) {
+        throw new Error(e);
+    }
+}
