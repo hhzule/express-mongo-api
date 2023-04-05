@@ -11,7 +11,6 @@ export interface WatchesInput {
 export interface WatchDocument extends WatchesInput, mongoose.Document {
     createdAt: Date;
     updatedAt: Date;
-    // comparePassword(candidatePassword: string): Promise<Boolean>;
 }
 
 const userSchema = new mongoose.Schema(

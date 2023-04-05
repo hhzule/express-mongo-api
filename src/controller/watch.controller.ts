@@ -16,6 +16,22 @@ const createWatchHandler = async (req: Request, res: Response) => {
     }
 };
 
+// response
+// {
+//     "name": "Rolex",
+//     "model": "XX-de",
+//     "owner": "JHON",
+//     "price": 1900,
+//     "status": "pending approval",
+//     "_id": "642de778fcb591c27fbbd2a9",
+//     "createdAt": "2023-04-05T21:26:16.776Z",
+//     "updatedAt": "2023-04-05T21:26:16.776Z",
+//     "__v": 0
+// }
+
+// missing field
+// Watch validation failed: owner: Path `owner` is required.
+
 const getAllWatchesHandler = async (req: Request, res: Response) => {
     try {   /**MongoDb call */
         const watches = await WatchModel.find()
@@ -34,10 +50,12 @@ const updateWatchHandler = async (req: Request, res: Response) => {
         /**MongoDb call */
         let updatedWatch
         if (mongoose.Types.ObjectId.isValid(id)) {
-            updatedWatch = await WatchModel.findByIdAndUpdate(id, { $set: { name: data.name, model: data.model, owner: data.owner, price: data.price } }, { new: true })
+            updatedWatch = await WatchModel.findByIdAndUpdate(id, { $set: data }, { new: true })
             if (updatedWatch) {
                 return res.send(updatedWatch)
             }
+        } else {
+            return res.status(409).send("item doesn't exist");
         }
 
     } catch (e: any) {
@@ -45,6 +63,8 @@ const updateWatchHandler = async (req: Request, res: Response) => {
         return res.status(409).send(e.message);
     }
 };
+
+
 const deleteWatchHandler = async (req: Request, res: Response) => {
     const id = req.body._id;
     try {
@@ -54,9 +74,9 @@ const deleteWatchHandler = async (req: Request, res: Response) => {
             deletedWatch = await WatchModel.findByIdAndRemove(id)
             if (deletedWatch) {
                 return res.send(deletedWatch)
-            } else {
-                return res.send("no such watch exits")
             }
+        } else {
+            return res.send("no such watch exits")
         }
     } catch (e: any) {
         logger.error(e);

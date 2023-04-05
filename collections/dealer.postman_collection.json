@@ -1,0 +1,124 @@
+{
+	"info": {
+		"_postman_id": "37e1129e-1ce7-4d14-ac4b-325ca4f78066",
+		"name": "dealer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getdealers",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\":\"AltonSome\",\n  \"email\" : \"hhdd@gmail.com\",\n  \"company\": \"abc\"\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1387/getdealers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1387",
+					"path": [
+						"getdealers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createdealer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\":\"AltxxonA\",\n  \"email\" : \"ggddxx@gmail.com\",\n  \"company\": \"abc\",\n   \"commision\": 5\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1387/createdealer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1387",
+					"path": [
+						"createdealer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updatedealer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"_id\":\"642b7f556e6b07ad795ebd77\",\n    \"name\":\"oooo\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1387/updatedealer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1387",
+					"path": [
+						"updatedealer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deletedealer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"_id:\"ss\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1387/deletedealer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1387",
+					"path": [
+						"deletedealer"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
