@@ -8,8 +8,8 @@ import createServer from "./utils/server";
 const port = config.get<number>('port')
 export const app = createServer()
 
-app.listen(80, async () => {
+app.listen(port, async () => {
     logger.info(`App is running at ${port}`)
     await connect()
-    swaggerDocs(app, 80)
+    swaggerDocs(app, port)
 })
