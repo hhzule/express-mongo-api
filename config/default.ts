@@ -1,5 +1,5 @@
 require('dotenv').config()
 export default {
-    port: 1387,
+    port: 80,
     dbUri: process.env.DB_URI
 }
