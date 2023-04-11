@@ -4,7 +4,7 @@ require('dotenv').config()
 
 async function connect() {
 
-    const configdbUri = config.get<string>("dbUri")
+    // const configdbUri = config.get<string>("dbUri")
     const dbUri = process.env.DB_URI || ""
 
     try {

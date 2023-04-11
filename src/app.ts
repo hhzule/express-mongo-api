@@ -5,11 +5,11 @@ import logger from "./utils/logger";
 import swaggerDocs from "./utils/swagger";
 import createServer from "./utils/server";
 
-const port = config.get<number>('port')
+// const port = config.get<number>('port')
 export const app = createServer()
 
-app.listen(port, async () => {
-    logger.info(`App is running at ${port}`)
+app.listen(1387, async () => {
+    logger.info(`App is running at ${1387}`)
     await connect()
-    swaggerDocs(app, port)
+    swaggerDocs(app, 1387)
 })

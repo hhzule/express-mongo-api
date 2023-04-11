@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
-    dbUri: "DB_CONNECTION",
-    port: "PORT",
+    port: 1387,
+    dbUri: process.env.DB_URI
 };

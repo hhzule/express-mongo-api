@@ -13,11 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
-const config_1 = __importDefault(require("config"));
 require('dotenv').config();
 function connect() {
     return __awaiter(this, void 0, void 0, function* () {
-        const configdbUri = config_1.default.get("dbUri");
+        // const configdbUri = config.get<string>("dbUri")
         const dbUri = process.env.DB_URI || "";
         try {
             yield mongoose_1.default.connect("mongodb+srv://hhzule:dayafterkal@cluster0.1clox92.mongodb.net/test?retryWrites=true&w=majority");

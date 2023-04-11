@@ -13,15 +13,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.app = void 0;
-const config_1 = __importDefault(require("config"));
 const connect_1 = __importDefault(require("./utils/connect"));
 const logger_1 = __importDefault(require("./utils/logger"));
 const swagger_1 = __importDefault(require("./utils/swagger"));
 const server_1 = __importDefault(require("./utils/server"));
-const port = config_1.default.get('port');
+// const port = config.get<number>('port')
 exports.app = (0, server_1.default)();
-exports.app.listen(port, () => __awaiter(void 0, void 0, void 0, function* () {
-    logger_1.default.info(`App is running at ${port}`);
+exports.app.listen(1387, () => __awaiter(void 0, void 0, void 0, function* () {
+    logger_1.default.info(`App is running at ${1387}`);
     yield (0, connect_1.default)();
-    (0, swagger_1.default)(exports.app, port);
+    (0, swagger_1.default)(exports.app, 1387);
 }));
