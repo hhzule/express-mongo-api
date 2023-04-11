@@ -5,11 +5,10 @@ require('dotenv').config()
 async function connect() {
 
     const configdbUri = config.get<string>("dbUri")
-    const dbUri = process.env.DB_URI
+    const dbUri = process.env.DB_URI || ""
 
     try {
-        await mongoose.connect(""
-        )
+        await mongoose.connect(dbUri)
         console.log("db connected")
     } catch (error) {
         console.error(error);
@@ -17,3 +16,4 @@ async function connect() {
     }
 }
 export default connect;
+
