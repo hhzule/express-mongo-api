@@ -1,11 +1,8 @@
 import { Request, Response } from "express";
-import { omit } from "lodash";
 import mongoose from "mongoose";
-// import { CreateUserInput } from "../schema/user.schema";
-// import { createUser } from "../service/user.service";
 import logger from "../utils/logger";
 import CustomerModel from "../models/customer.model";
-import exp from "constants";
+
 
 const createCustomerHandler = async (req: Request, res: Response) => {
     console.log(req.body);
