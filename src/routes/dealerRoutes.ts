@@ -5,31 +5,170 @@ function dealerRoutes(app: Express) {
   /**
     * @openapi
     * tags:
-    *   - name: dealers
-    *     description: CRUD about your dealers
-    *   - name: store
-    *     description: Access to Petstore orders
-    *   - name: user
-    *     description: Operations about user
+    *   - name: create dealer
+    *     description: dealer created
+    *   - name: update dealer
+    *     description: dealer updated
+    *   - name: delete dealer
+    *     description: dealer deleted
+    *   - name: get dealers
+    *     description: get dealers list
+    *   - name: get dealer by id
+    *     description: get dealer by _id
     * 
-    * /healthcheck:
-    *  get:
+    * /dealer:
+    *  post:
     *     tags:
-    *     - Healthcheck
-    *     summary: summary
-    *     description: Responds if the app is up and running
+    *     - create dealer
+    *     summary: Register a dealer
+    *     requestBody:
+    *      required: true
+    *      content:
+    *        application/json:
+    *           schema:
+    *             $ref: '#/components/schemas/CreateDealerInput'
     *     responses:
-    *       200:
-    *         description: App is up and running
+    *      200:
+    *        description: Success
+    *        content:
+    *          application/json:
+    *            schema:
+    *              $ref: '#/components/schemas/CreateDealerResponse'
+    *      409:
+    *        description: duplicate key error
+    *      400:
+    *        description: validation error, required key missing
     */
-  app.get('/healthcheckdealer', (req: Request, res: Response) => {
-    res.sendStatus(200)
-  })
 
-  app.post('/createdealer', DealerController.createDealerHandler)
-  app.post('/updatedealer', DealerController.updateDealerHandler)
-  app.post('/deletedealer', DealerController.deleteDealerHandler)
-  app.get('/getdealers', DealerController.getAllDealersHandler)
+  app.post('/dealer', DealerController.createDealerHandler)
+  /**
+   * @openapi
+   * '/dealer':
+   *  put:
+   *     tags:
+   *     - update dealer
+   *     summary: Update a dealer
+   *     requestBody:
+   *      required: true
+   *      content:
+   *        application/json:
+   *           schema:
+   *             $ref: '#/components/schemas/UpdateDealerInput'
+   *     responses:
+   *      200:
+   *        description: Success
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/CreateDealerResponse'
+   *      409:
+   *        description: Conflict
+   *      400:
+   *        description: Bad request
+   */
+
+  app.put('/dealer', DealerController.updateDealerHandler)
+
+  /**
+  * @openapi
+  * '/dealer':
+  *  delete:
+  *     tags:
+  *     - delete dealer
+  *     summary: Delete a dealer
+  *     requestBody:
+  *      required: true
+  *      content:
+  *        application/json:
+  *           schema:
+  *             type: object
+  *             required:
+  *               - _id
+  *               - auth
+  *             properties:
+  *               _id:
+  *                 type: string
+  *               auth:
+  *                 type: string
+  *     responses:
+  *      200:
+  *        description: dealer deleted 
+  *      409:
+  *        description: Conflict
+  *      400:
+  *        description: Bad request
+  */
+  app.delete('/dealer', DealerController.deleteDealerHandler)
+
+  /**
+   * @openapi
+   * '/dealers':
+   *  get:
+   *     tags:
+   *     - get dealers
+   *     summary: Get all dealers
+   *     requestBody:
+   *      required: true
+   *      content:
+   *        application/json:
+   *           schema:
+   *             type: object
+   *             required:
+   *               - auth
+   *             properties:
+   *               auth:
+   *                 type: string
+   *                      
+   *     responses:
+   *      200:
+   *        description: Success
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/GetDealersResponse'
+   *      
+   *      409:
+   *        description: Conflict
+   *      400:
+   *        description: Bad request
+   */
+
+  app.get('/dealers', DealerController.getAllDealersHandler)
+  /**
+   * @openapi
+   * '/dealer':
+   *  get:
+   *     tags:
+   *     - get dealer by id
+   *     summary: Get a dealer
+   *     requestBody:
+   *      required: true
+   *      content:
+   *        application/json:
+   *           schema:
+   *             type: object
+   *             required:
+   *               - _id
+   *               - auth 
+   *             properties:
+   *               _id:
+   *                 type: string   
+   *               auth:
+   *                 type: string    
+   *     responses:
+   *      200:
+   *        description: Success
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/CreateDealerResponse'
+   *      409:
+   *        description: Conflict
+   *      400:
+   *        description: Bad request
+   */
+
+  app.get('/dealer', DealerController.getDealerByIdHandler)
 }
 
 export default dealerRoutes

@@ -6,12 +6,15 @@ function customerRoutes(app: Express) {
     * @openapi
     * tags:
     *   - name: create customer
-    *     description: customer created by admin
+    *     description: customer created
     *   - name: update customer
-    *     description: customer updated by admin
+    *     description: customer updated
     *   - name: delete customer
-    *     description: delete customer by admin
-    * 
+    *     description: delete customer
+    *   - name: get customers
+    *     description: get customers list
+    *   - name: get customer by id
+    *     description: get customer by _id
     * /healthcheckcustomer:
     *  get:
     *     tags:
@@ -27,7 +30,7 @@ function customerRoutes(app: Express) {
   })
   /**
    * @openapi
-   * '/createcustomer':
+   * '/customer':
    *  post:
    *     tags:
    *     - create customer
@@ -51,12 +54,12 @@ function customerRoutes(app: Express) {
    *        description: Bad request
    */
 
-  app.post('/createcustomer', CustomerController.createCustomerHandler)
+  app.post('/customer', CustomerController.createCustomerHandler)
 
   /**
    * @openapi
-   * '/updatecustomer':
-   *  post:
+   * '/customer':
+   *  put:
    *     tags:
    *     - update customer
    *     summary: Update a customer
@@ -65,7 +68,7 @@ function customerRoutes(app: Express) {
    *      content:
    *        application/json:
    *           schema:
-   *             $ref: '#/components/schemas/CreateCustomerInput'
+   *             $ref: '#/components/schemas/UpdateCustomerInput'
    *     responses:
    *      200:
    *        description: Success
@@ -79,12 +82,12 @@ function customerRoutes(app: Express) {
    *        description: Bad request
    */
 
-  app.post('/updatecustomer', CustomerController.updateCustomerHandler)
+  app.put('/customer', CustomerController.updateCustomerHandler)
 
   /**
    * @openapi
-   * '/deletecustomer':
-   *  post:
+   * '/customer':
+   *  delete:
    *     tags:
    *     - delete customer
    *     summary: Delete a customer
@@ -101,19 +104,66 @@ function customerRoutes(app: Express) {
    *                 type: string
    *     responses:
    *      200:
-   *        description: Success
-   *        content:
-   *          application/json:
-   *            schema:
-   *              type: customer deleted
+   *        description: customer deleted 
    *      409:
    *        description: Conflict
    *      400:
    *        description: Bad request
    */
 
-  app.post('/deletecustomer', CustomerController.deleteCustomerHandler)
-  app.get('/getcustomers', CustomerController.getAllCustomersHandler)
+  app.delete('/customer', CustomerController.deleteCustomerHandler)
+  /**
+   * @openapi
+   * '/customers':
+   *  get:
+   *     tags:
+   *     - get customers
+   *     summary: Get all customers
+   *     responses:
+   *      200:
+   *        description: Success
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/GetCustomersResponse'
+   *      
+   *      409:
+   *        description: Conflict
+   *      400:
+   *        description: Bad request
+   */
+  app.get('/customers', CustomerController.getAllCustomersHandler)
+  /**
+   * @openapi
+   * '/customer':
+   *  get:
+   *     tags:
+   *     - get customer by id
+   *     summary: Get a customer
+   *     requestBody:
+   *      required: true
+   *      content:
+   *        application/json:
+   *           schema:
+   *             type: object
+   *             required:
+   *               - _id
+   *             properties:
+   *               _id:
+   *                 type: string     
+   *     responses:
+   *      200:
+   *        description: Success
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/CreateCustomerResponse'
+   *      409:
+   *        description: Conflict
+   *      400:
+   *        description: Bad request
+   */
+  app.get('/customer', CustomerController.getCustomerByIdHandler)
 }
 
 export default customerRoutes

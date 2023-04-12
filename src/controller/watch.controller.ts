@@ -84,11 +84,31 @@ const deleteWatchHandler = async (req: Request, res: Response) => {
     }
 };
 
+const getWatchByIdHandler = async (req: Request, res: Response) => {
+    const id = req.body._id;
+    try {
+        /**MongoDb call */
+        let Watch
+        if (mongoose.Types.ObjectId.isValid(id)) {
+            Watch = await WatchModel.findById(id)
+            if (Watch) {
+                return res.send(Watch)
+            }
+        } else {
+            return res.send("no such watch exits")
+        }
+    } catch (e: any) {
+        logger.error(e);
+        return res.status(409).send(e.message);
+    }
+};
+
 export default {
     createWatchHandler,
     getAllWatchesHandler,
     updateWatchHandler,
-    deleteWatchHandler
+    deleteWatchHandler,
+    getWatchByIdHandler
 
 
 }

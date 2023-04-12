@@ -74,11 +74,29 @@ const deleteCustomerHandler = async (req: Request, res: Response) => {
     }
 };
 
+const getCustomerByIdHandler = async (req: Request, res: Response) => {
+    const id = req.body._id;
+    try {
+        /**MongoDb call */
+        let Customer
+        if (mongoose.Types.ObjectId.isValid(id)) {
+            Customer = await CustomerModel.findById(id)
+            if (Customer) {
+                return res.send(Customer)
+            } else {
+                return res.send("no such customer exits")
+            }
+        }
+    } catch (e: any) {
+        logger.error(e);
+        return res.status(409).send(e.message);
+    }
+};
+
 export default {
     createCustomerHandler,
     getAllCustomersHandler,
     updateCustomerHandler,
-    deleteCustomerHandler
-
-
+    deleteCustomerHandler,
+    getCustomerByIdHandler
 }
