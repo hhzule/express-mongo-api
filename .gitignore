@@ -3,3 +3,4 @@ node_modules
 commands.md
 sshkp.pem
 *.pem
+build
