@@ -11,22 +11,31 @@ const options: swaggerJsdoc.Options = {
             title: "REST API Docs",
             version,
         },
-        components: {
-            securitySchemas: {
-                bearerAuth: {
-                    type: "http",
-                    scheme: "bearer",
-                    bearerFormat: "JWT",
-                },
-            },
-        },
-        security: [
-            {
-                bearerAuth: [],
-            },
-        ],
+        schemes: ["http", "https"],
+        servers: [{ url: "http://localhost:1387/" }],
+        // components: {
+        //     securitySchemas: {
+        //         bearerAuth: {
+        //             type: "http",
+        //             scheme: "bearer",
+        //             bearerFormat: "JWT",
+        //         },
+        //     },
+        // },
+        // security: [
+        //     {
+        //         bearerAuth: [],
+        //     },
+        // ],
     },
-    apis: ["./src/routes/*.ts", "./src/schema/*.ts"],
+    // apis: ["./src/routes/*.ts", "./src/schema/*.ts"],
+    apis: ["./src/routes/*.{ts,js}",
+        "./src/schema/*.{ts,js}",
+        "./build/src/routes/*.{ts,js}",
+        "./build/src/schema/*.{ts,js}",
+        `${__dirname}/src/routes/*.{ts,js}`,
+        `${__dirname}/src/schema/*.{ts,js}`,
+    ]
 };
 
 const swaggerSpec = swaggerJsdoc(options);

@@ -25,6 +25,7 @@
     "pino-pretty": "^10.0.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^4.6.2",
+    "tsoa": "^5.1.1",
     "zod": "^3.21.4"
   },
   "devDependencies": {
