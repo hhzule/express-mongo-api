@@ -25,17 +25,6 @@ const getAllCustomersHandler = async (req: Request, res: Response) => {
     }
 };
 
-// export const getCustomerHandler = async (req: Request, res: Response) => {
-//     const id = req.body.id;
-//     try {
-//         /**MongoDb call */
-//         const customers = await CustomerModel.findById(id)
-//         return res.send("user")
-//     } catch (e: any) {
-//         logger.error(e);
-//         return res.status(409).send(e.message);
-//     }
-// };
 
 const updateCustomerHandler = async (req: Request, res: Response) => {
     const id = req.body._id;

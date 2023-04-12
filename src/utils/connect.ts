@@ -8,7 +8,7 @@ async function connect() {
     const dbUri = process.env.DB_URI || ""
 
     try {
-        await mongoose.connect("mongodb+srv://hhzule:dayafterkal@cluster0.1clox92.mongodb.net/test?retryWrites=true&w=majority")
+        await mongoose.connect("mongodb+srv://hhzule:dayafterkal@cluster0.ptji23d.mongodb.net/express?retryWrites=true&w=majority")
         console.log("db connected")
     } catch (error) {
         console.error(error);

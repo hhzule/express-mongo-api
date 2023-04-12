@@ -2,19 +2,24 @@ import { Request, Response } from "express";
 import logger from "../utils/logger";
 import mongoose from "mongoose";
 import CustomerModel from "../models/customer.model";
-import DealerModel from "../models/customer.model";
+import DealerModel from "../models/dealer.model";
+import AdminModel from "../models/admin.model"
 
 
 const adjustCommisionHandler = async (req: Request, res: Response) => {
-    if (req.body.auth) {
-        const id = req.body._id;
-        const data = req.body
+    const id = req.body.auth
+    const admin: any = await AdminModel.find();
+    const adminId = admin[0]?._id.toString()
+
+    if (!id || !adminId) {
+        return res.send("admin undefined")
+    } else if (id == adminId) {
         try { /**MongoDb call */
             switch (req.body.userType) {
                 case "customer":
                     let updatedCustomer
                     if (mongoose.Types.ObjectId.isValid(id)) {
-                        updatedCustomer = await CustomerModel.findByIdAndUpdate(id, { $set: data }, { new: true })
+                        updatedCustomer = await CustomerModel.findByIdAndUpdate(id, { $set: req.body }, { new: true })
                         if (updatedCustomer) {
                             return res.send(updatedCustomer)
                         }
@@ -22,7 +27,7 @@ const adjustCommisionHandler = async (req: Request, res: Response) => {
                 case "dealer":
                     let updatedDealer
                     if (mongoose.Types.ObjectId.isValid(id)) {
-                        updatedDealer = await DealerModel.findByIdAndUpdate(id, { $set: data }, { new: true })
+                        updatedDealer = await DealerModel.findByIdAndUpdate(id, { $set: req.body }, { new: true })
                         if (updatedDealer) {
                             return res.send(updatedDealer)
                         }
@@ -40,6 +45,97 @@ const adjustCommisionHandler = async (req: Request, res: Response) => {
     }
 };
 
+const createAdminHandler = async (req: Request, res: Response) => {
+    console.log(req.body);
+    try { /**MongoDb call */
+        const number = await AdminModel.countDocuments();
+        if (number == 1) {
+            return res.send("admin already exist")
+        } else if (number < 1) {
+            const admin = await AdminModel.create(req.body)
+            return res.send(admin)
+        }
+
+    } catch (e: any) {
+        logger.error(e);
+        return res.status(409).send(e.message);
+    }
+};
+
+const getAdminHandler = async (req: Request, res: Response) => {
+    try {   /**MongoDb call */
+        const admins = await AdminModel.find()
+        return res.send(admins)
+    } catch (e: any) {
+        logger.error(e);
+        return res.status(409).send(e.message);
+    }
+};
+
+
+const updateAdminHandler = async (req: Request, res: Response) => {
+    const id = req.body.auth
+    const admin: any = await AdminModel.find();
+    const adminId = admin[0]?._id.toString()
+
+    if (!id || !adminId) {
+        return res.send("admin undefined")
+    } else if (id == adminId) {
+        try {
+            /**MongoDb call */
+            let updatedAdmin
+            if (mongoose.Types.ObjectId.isValid(id)) {
+                updatedAdmin = await AdminModel.findByIdAndUpdate(id, { $set: req.body }, { new: true })
+                if (updatedAdmin) {
+                    return res.send(updatedAdmin)
+                }
+            }
+
+        } catch (e: any) {
+            logger.error(e);
+            return res.status(409).send(e.message);
+        }
+    } else {
+        return res.status(401).send("not authorised");
+
+    }
+
+};
+const deleteAdminHandler = async (req: Request, res: Response) => {
+    const id = req.body.auth
+    const admin: any = await AdminModel.find();
+    const adminId = admin[0]?._id.toString()
+
+    if (!id || !adminId) {
+        return res.send("admin undefined")
+    } else if (id == adminId) {
+        try {
+            /**MongoDb call */
+            let deletedAdmin
+            if (mongoose.Types.ObjectId.isValid(id)) {
+                deletedAdmin = await AdminModel.findByIdAndRemove(id)
+                if (deletedAdmin) {
+                    return res.send(deletedAdmin)
+                } else {
+                    return res.send("no such customer exits")
+                }
+            }
+        } catch (e: any) {
+            logger.error(e);
+            return res.status(409).send(e.message);
+        }
+    }
+    else {
+        return res.status(401).send("not authorised");
+
+    }
+
+};
+
 export default {
     adjustCommisionHandler,
+    createAdminHandler,
+    getAdminHandler,
+    updateAdminHandler,
+    deleteAdminHandler
 }

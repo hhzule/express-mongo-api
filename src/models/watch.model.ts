@@ -13,19 +13,35 @@ export interface WatchDocument extends WatchesInput, mongoose.Document {
     updatedAt: Date;
 }
 
-const userSchema = new mongoose.Schema(
+const watchSchema = new mongoose.Schema(
     {
-        name: { type: String, required: true },
-        model: { type: String, required: true },
-        owner: { type: String, required: true },
-        price: { type: Number, required: true },
-        status: { type: String, required: true },
+        name: {
+            type: String,
+            required: [true, "Please enter name"],
+        },
+        model: {
+            type: String,
+            required: [true, "Please enter model name"],
+        },
+        owner: {
+            type: String,
+            required: [true, "Please enter owner name"],
+        },
+        price: {
+            type: Number,
+            required: [true, "Please enter price"],
+        },
+        status: {
+            type: String,
+            required: true,
+            default: "pending"
+        },
     },
     {
         timestamps: true,
     }
 );
 
-const WatchModel = mongoose.model<WatchDocument>("Watch", userSchema);
+const WatchModel = mongoose.model<WatchDocument>("Watch", watchSchema);
 
 export default WatchModel;

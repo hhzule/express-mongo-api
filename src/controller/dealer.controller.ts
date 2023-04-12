@@ -2,12 +2,21 @@ import { Request, Response } from "express";
 import mongoose from "mongoose";
 import logger from "../utils/logger";
 import { createDealer } from "../service/dealer.service"
-import DealerModel, { DealerDocument } from "../models/dealer.model";
+import DealerModel from "../models/dealer.model";
+import AdminModel from "../models/admin.model"
 
 const createDealerHandler = async (req: Request, res: Response) => {
-    console.log(req.body);
-    if (req.body.auth) {
+    const id = req.body.auth
+    const admin: any = await AdminModel.find();
+    const adminId = admin[0]?._id.toString()
+
+    if (!id || !adminId) {
+        return res.send("admin undefined")
+    } else if (id == adminId) {
+
         try { /**MongoDb call */
+            console.log("==>first==>", id == admin._id)
+            console.log("==>admin==>", admin._id.toString())
             const dealer = await createDealer(req.body)
             return res.send(dealer)
         } catch (e: any) {
@@ -19,14 +28,15 @@ const createDealerHandler = async (req: Request, res: Response) => {
     }
 };
 
-//  duplicate key error
-// MongoServerError: E11000 duplicate key error collection: test.dealers index: email_1 dup key: { email: "gg@gmail.com" }
-
-// validation error, required key missing
-// ValidationError: company: Path `company` is required.
 const getAllDealersHandler = async (req: Request, res: Response) => {
-    console.log(req.body);
-    if (req.body.auth) {
+    const id = req.body.auth
+    const admin: any = await AdminModel.find();
+    const adminId = admin[0]?._id.toString()
+
+    if (!id || !adminId) {
+        return res.send("admin undefined")
+    } else if (id == adminId) {
+
         try {   /**MongoDb call */
             const dealers = await DealerModel.find()
             return res.send(dealers)
@@ -42,14 +52,19 @@ const getAllDealersHandler = async (req: Request, res: Response) => {
 
 
 const updateDealerHandler = async (req: Request, res: Response) => {
-    if (req.body.auth) {
-        const id = req.body._id;
-        const data = req.body
+    const id = req.body.auth
+    const admin: any = await AdminModel.find();
+    const adminId = admin[0]?._id.toString()
+
+    if (!id || !adminId) {
+        return res.send("admin undefined")
+    } else if (id == adminId) {
+
         try {
             /**MongoDb call */
             let updatedDealer
             if (mongoose.Types.ObjectId.isValid(id)) {
-                updatedDealer = await DealerModel.findByIdAndUpdate(id, { $set: data }, { new: true })
+                updatedDealer = await DealerModel.findByIdAndUpdate(id, { $set: req.body }, { new: true })
                 if (updatedDealer) {
                     return res.send(updatedDealer)
                 }
@@ -69,8 +84,13 @@ const updateDealerHandler = async (req: Request, res: Response) => {
 
 
 const deleteDealerHandler = async (req: Request, res: Response) => {
-    if (req.body.auth) {
-        const id = req.body._id;
+    const id = req.body.auth
+    const admin: any = await AdminModel.find();
+    const adminId = admin[0]?._id.toString()
+
+    if (!id || !adminId) {
+        return res.send("admin undefined")
+    } else if (id == adminId) {
         try {
             /**MongoDb call */
             let deletedDealer
@@ -93,8 +113,14 @@ const deleteDealerHandler = async (req: Request, res: Response) => {
 
 
 const getDealerByIdHandler = async (req: Request, res: Response) => {
-    if (req.body.auth) {
-        const id = req.body._id;
+    const id = req.body.auth
+    const admin: any = await AdminModel.find();
+    const adminId = admin[0]?._id.toString()
+
+    if (!id || !adminId) {
+        return res.send("admin undefined")
+    } else if (id == adminId) {
+
         try {
             /**MongoDb call */
             let Dealer

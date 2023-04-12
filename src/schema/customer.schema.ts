@@ -8,6 +8,7 @@
  *      required:
  *        - email
  *        - name
+ *        - password  
  *      properties:
  *        email:
  *          type: string
@@ -15,6 +16,9 @@
  *        name:
  *          type: string
  *          default: Jane Doe
+ *        password:
+ *          type: string
+ *          default: Janepassword
  *    CreateCustomerResponse:
  *      type: object
  *      properties:
@@ -52,6 +56,7 @@
  *      required:
  *        - email
  *        - name
+ *        - password  
  *        - commision
  *        - _id  
  *      properties:

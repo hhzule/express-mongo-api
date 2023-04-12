@@ -16,21 +16,6 @@ const createWatchHandler = async (req: Request, res: Response) => {
     }
 };
 
-// response
-// {
-//     "name": "Rolex",
-//     "model": "XX-de",
-//     "owner": "JHON",
-//     "price": 1900,
-//     "status": "pending approval",
-//     "_id": "642de778fcb591c27fbbd2a9",
-//     "createdAt": "2023-04-05T21:26:16.776Z",
-//     "updatedAt": "2023-04-05T21:26:16.776Z",
-//     "__v": 0
-// }
-
-// missing field
-// Watch validation failed: owner: Path `owner` is required.
 
 const getAllWatchesHandler = async (req: Request, res: Response) => {
     try {   /**MongoDb call */
@@ -109,6 +94,4 @@ export default {
     updateWatchHandler,
     deleteWatchHandler,
     getWatchByIdHandler
-
-
 }

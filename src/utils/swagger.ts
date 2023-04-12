@@ -12,7 +12,7 @@ const options: swaggerJsdoc.Options = {
             version,
         },
         schemes: ["http", "https"],
-        servers: [{ url: "http://localhost:1387/" }],
+        // servers: [{ url: "http://localhost:1387/" }],
         // components: {
         //     securitySchemas: {
         //         bearerAuth: {
