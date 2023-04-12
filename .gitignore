@@ -1,6 +1,6 @@
-node_modules
+/node_modules
 .env
 commands.md
 sshkp.pem
 *.pem
-build
+/build
