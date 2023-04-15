@@ -4,9 +4,11 @@ import customerRoutes from "../routes/customerRoutes";
 import watchRoutes from "../routes/watchRoutes";
 import adminRoutes from "../routes/adminRoutes"
 // import adminrouter from "../routes/adminRoutes"
+import cors from "cors"
 
 function createServer() {
     const app = express();
+    app.use(cors());
     app.use(express.json());
     // app.use(adminrouter)
     dealerRoutes(app)
