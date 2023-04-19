@@ -11,7 +11,7 @@ function dealerRoutes(app: Express) {
     *     description: dealer updated
     *   - name: delete dealer
     *     description: dealer deleted
-    *   - name: get dealers
+    *   - name: post dealers
     *     description: get dealers list
     *   - name: get dealer by id
     *     description: get dealer by _id
@@ -105,7 +105,7 @@ function dealerRoutes(app: Express) {
    * '/dealers':
    *  post:
    *     tags:
-   *     - get dealers
+   *     - post dealers
    *     summary: Get all dealers
    *     requestBody:
    *      required: true
