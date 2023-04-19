@@ -62,8 +62,8 @@ const updateDealerHandler = async (req: Request, res: Response) => {
         try {
             /**MongoDb call */
             let updatedDealer
-            if (mongoose.Types.ObjectId.isValid(id)) {
-                updatedDealer = await DealerModel.findByIdAndUpdate(id, { $set: req.body }, { new: true })
+            if (mongoose.Types.ObjectId.isValid(req.body._id)) {
+                updatedDealer = await DealerModel.findByIdAndUpdate(req.body._id, { $set: req.body }, { new: true })
                 if (updatedDealer) {
                     return res.send(updatedDealer)
                 }
