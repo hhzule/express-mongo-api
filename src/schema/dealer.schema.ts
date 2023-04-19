@@ -11,6 +11,7 @@
  *        - company
  *        - commision
  *        - auth  
+ *        - password  
  *      properties:
  *        email:
  *          type: string
@@ -26,6 +27,9 @@
  *          default: 5
  *        auth:
  *          type: string  
+ *        password:
+ *          type: string
+ *          default: "pass"  
  *    CreateDealerResponse: 
  *      type: object
  *      properties:
