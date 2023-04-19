@@ -11,8 +11,8 @@ function adminRoutes(app: Express) {
   /**
    * @openapi
    * tags:
-   *   - name: comission adjustment by admin
-   *     description: comission adjustment by admin
+   *   - name: commission adjustment by admin
+   *     description: commission adjustment by admin
    *   - name: create admin
    *     description: admin created
    *   - name: update admin
@@ -24,14 +24,14 @@ function adminRoutes(app: Express) {
    * '/adjustcommision':
    *  post:
    *     tags:
-   *     - comission adjustment by admin
+   *     - commission adjustment by admin
    *     summary: Register a customer
    *     requestBody:
    *      required: true
    *      content:
    *        application/json:
    *           schema:
-   *             $ref: '#/components/schemas/AdjustComissionInput'
+   *             $ref: '#/components/schemas/AdjustCommissionInput'
    *     responses:
    *      200:
    *        description: Success

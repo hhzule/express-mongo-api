@@ -3,7 +3,7 @@
  * @openapi
  * components:
  *  schemas:
- *    AdjustComissionInput:
+ *    AdjustCommissionInput:
  *      type: object
  *      required:
  *        - _id
@@ -30,7 +30,7 @@
  *            - customer
  *            - dealer    
  *          default: "customer or dealer"  
- *    AdjustComissionResponse:
+ *    AdjustCommissionResponse:
  *      type: object
  *      properties:
  *        email:

@@ -103,7 +103,7 @@ function dealerRoutes(app: Express) {
   /**
    * @openapi
    * '/dealers':
-   *  get:
+   *  post:
    *     tags:
    *     - get dealers
    *     summary: Get all dealers
@@ -133,7 +133,7 @@ function dealerRoutes(app: Express) {
    *        description: Bad request
    */
 
-  app.get('/dealers', DealerController.getAllDealersHandler)
+  app.post('/dealers', DealerController.getAllDealersHandler)
   /**
    * @openapi
    * '/dealer':

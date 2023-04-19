@@ -4,7 +4,7 @@ export interface CustomerInput {
     email: string;
     name: string;
     password: string;
-    comission: number
+    commission: number
 }
 
 export interface CustomerDocument extends CustomerInput, mongoose.Document {
@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema(
             required: [true, "Please enter password"],
             minlength: [6, "minimum password length is 6 characters"]
         },
-        comission: {
+        commission: {
             type: Number,
             required: true,
             default: 1
