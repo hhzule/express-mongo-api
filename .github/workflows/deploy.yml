@@ -39,14 +39,15 @@ jobs:
           key:  ${{ secrets.KEY }}
           port:  ${{ secrets.PORT }}
           script: |
-              curl -o-   https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh    | bash
-              . ~/.nvm/nvm.sh
-               nvm instal 14
-               npm install -g pm2
-               cd ~/CICD
+              # curl -o-   https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh    | bash
+              # . ~/.nvm/nvm.sh
+              #  nvm instal 14
+              #  npm install -g pm2
+               cd ~/express-mongo-api
                git pull origin main
-               npm install
-               npm run build
-               cd build/src
-               pm2 restart build/src/app.js
+               yarn install
+               yarn build
+               cd build
+               pm2 restart src/app.js
+            
             

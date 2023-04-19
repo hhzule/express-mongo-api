@@ -15,13 +15,12 @@ const createDealerHandler = async (req: Request, res: Response) => {
     } else if (id == adminId) {
 
         try { /**MongoDb call */
-            console.log("==>first==>", id == admin._id)
-            console.log("==>admin==>", admin._id.toString())
+
             const dealer = await createDealer(req.body)
             return res.send(dealer)
         } catch (e: any) {
             logger.error(e);
-            return res.status(409).send(e.message);
+            return res.status(409).send(admin);
         }
     } else {
         return res.status(401).send("not authorised");
