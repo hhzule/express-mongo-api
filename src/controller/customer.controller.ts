@@ -2,13 +2,14 @@ import { Request, Response } from "express";
 import mongoose from "mongoose";
 import logger from "../utils/logger";
 import CustomerModel from "../models/customer.model";
+import { omit } from "lodash"
 
 
 const createCustomerHandler = async (req: Request, res: Response) => {
     console.log(req.body);
     try { /**MongoDb call */
         const customer = await CustomerModel.create(req.body)
-        return res.send(customer)
+        return res.send(omit(customer.toObject(), "password"))
     } catch (e: any) {
         logger.error(e);
         return res.status(409).send(e.message);
@@ -35,7 +36,7 @@ const updateCustomerHandler = async (req: Request, res: Response) => {
         if (mongoose.Types.ObjectId.isValid(id)) {
             updatedCustomer = await CustomerModel.findByIdAndUpdate(id, { $set: { name: data.name, email: data.email, company: data.company } }, { new: true })
             if (updatedCustomer) {
-                return res.send(updatedCustomer)
+                return res.send(omit(updatedCustomer.toObject(), "password"))
             }
         }
 
@@ -71,7 +72,7 @@ const getCustomerByIdHandler = async (req: Request, res: Response) => {
         if (mongoose.Types.ObjectId.isValid(id)) {
             Customer = await CustomerModel.findById(id)
             if (Customer) {
-                return res.send(Customer)
+                return res.send(omit(Customer.toObject(), "password"))
             } else {
                 return res.send("no such customer exits")
             }

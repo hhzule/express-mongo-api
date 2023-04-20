@@ -7,7 +7,6 @@ export interface DealerInput {
     name: string;
     password: string
     company: string;
-    commision: number
 
 }
 
@@ -40,11 +39,6 @@ const dealerSchema = new mongoose.Schema(
         company: {
             type: String,
             required: [true, "Please enter Company name"],
-        },
-        commision: {
-            type: Number,
-            required: true,
-            default: 1
         },
 
     },

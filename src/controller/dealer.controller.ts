@@ -4,6 +4,7 @@ import logger from "../utils/logger";
 import { createDealer } from "../service/dealer.service"
 import DealerModel from "../models/dealer.model";
 import AdminModel from "../models/admin.model"
+import { omit } from "lodash"
 
 const createDealerHandler = async (req: Request, res: Response) => {
     const id = req.body.auth
@@ -17,7 +18,7 @@ const createDealerHandler = async (req: Request, res: Response) => {
         try { /**MongoDb call */
 
             const dealer = await createDealer(req.body)
-            return res.send(dealer)
+            return res.send(omit(dealer.toObject(), "password"))
         } catch (e: any) {
             logger.error(e);
             return res.status(409).send(admin);
@@ -65,7 +66,7 @@ const updateDealerHandler = async (req: Request, res: Response) => {
             if (mongoose.Types.ObjectId.isValid(req.body._id)) {
                 updatedDealer = await DealerModel.findByIdAndUpdate(req.body._id, { $set: req.body }, { new: true })
                 if (updatedDealer) {
-                    return res.send(updatedDealer)
+                    return res.send(omit(updatedDealer.toObject(), "password"))
                 }
             } else {
                 return res.status(409).send("user doesn't exist");
@@ -130,7 +131,7 @@ const getDealerByIdHandler = async (req: Request, res: Response) => {
             if (mongoose.Types.ObjectId.isValid(req.body._id)) {
                 Dealer = await DealerModel.findById(req.body._id)
                 if (Dealer) {
-                    return res.send(Dealer)
+                    return res.send(omit(Dealer.toObject(), "password"))
                 }
             } else {
                 return res.status(409).send("user doesn't exist");

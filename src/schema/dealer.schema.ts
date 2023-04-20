@@ -8,8 +8,6 @@
  *      required:
  *        - email
  *        - name
- *        - company
- *        - commision
  *        - auth  
  *        - password  
  *      properties:
@@ -19,12 +17,6 @@
  *        name:
  *          type: string
  *          default: Jane Doe
- *        company:
- *          type: string
- *          default: ABC company
- *        commision:
- *          type: number
- *          default: 5
  *        auth:
  *          type: string  
  *        password:
@@ -38,10 +30,6 @@
  *        name:
  *          type: string
  *        _id:
- *          type: string
- *        company:
- *          type: string
- *        commission:
  *          type: string
  *        createdAt:
  *          type: string
@@ -58,10 +46,6 @@
  *            type: string
  *          _id:
  *            type: string
- *          commission:
- *            type: string
- *          company:
- *            type: string  
  *          createdAt:
  *            type: string
  *          updatedAt:
@@ -71,9 +55,7 @@
  *      required:
  *        - email
  *        - name
- *        - commision
  *        - _id  
- *        - company 
  *        - auth   
  *      properties:
  *        email:
@@ -82,15 +64,9 @@
  *        name:
  *          type: string
  *          default: Jane Doe
- *        commision:
- *          type: number
- *          default: 5
  *        _id:
  *          type: string
- *          default: "12345" 
- *        company:
- *          type: string
- *          default: "ABC company"   
+ *          default: "12345"   
  *        auth:
  *          type: string
  */

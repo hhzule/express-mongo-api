@@ -6,37 +6,18 @@
  *    AdjustCommissionInput:
  *      type: object
  *      required:
- *        - _id
  *        - auth  
- *        - name
  *        - commision
- *        - userType  
  *      properties:
  *        auth:
  *          type: string
  *          default: Admin id
- *        _id:
- *          type: string
- *          default: _id of customer/dealer
  *        commision:
  *          type: number
  *          default: 5
- *        name:
- *          type: string
- *          default: "customerName"  
- *        userType:
- *          type: string
- *          enum:
- *            - customer
- *            - dealer    
- *          default: "customer or dealer"  
  *    AdjustCommissionResponse:
  *      type: object
  *      properties:
- *        email:
- *          type: string
- *        name:
- *          type: string
  *        _id:
  *          type: string
  *        commission:
@@ -51,6 +32,7 @@
  *        - email
  *        - name
  *        - password  
+ *        - commission  
  *      properties:
  *        email:
  *          type: string
@@ -58,9 +40,9 @@
  *        name:
  *          type: string
  *          default: Jane Doe
- *        password:
- *          type: string
- *          default: Janepassword
+ *        commission:
+ *          type: number
+ *          default: 5  
  *    CreateAdminResponse:
  *      type: object
  *      properties:
@@ -70,6 +52,8 @@
  *          type: string
  *        _id:
  *          type: string
+ *        commission:
+ *          type: number  
  *        createdAt:
  *          type: string
  *        updatedAt:
@@ -85,6 +69,8 @@
  *            type: string
  *          _id:
  *            type: string
+ *          commission:
+ *            type: number  
  *          createdAt:
  *            type: string
  *          updatedAt:
@@ -96,6 +82,7 @@
  *        - name
  *        - password
  *        - auth
+ *        - commission  
  *      properties:
  *        email:
  *          type: string
@@ -103,10 +90,10 @@
  *        name:
  *          type: string
  *          default: Jane Doe
- *        password:
- *          type: string
- *          default: adminPassword123
  *        auth:
  *          type: string
  *          default: "12345"  
+ *        commision:
+ *          type: number
+ *          default: 5
  */ 

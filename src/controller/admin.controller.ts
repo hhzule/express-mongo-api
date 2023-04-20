@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
 import logger from "../utils/logger";
 import mongoose from "mongoose";
-import CustomerModel from "../models/customer.model";
-import DealerModel from "../models/dealer.model";
 import AdminModel from "../models/admin.model"
+import { omit } from "lodash";
 
 
 const adjustCommisionHandler = async (req: Request, res: Response) => {
@@ -15,25 +14,12 @@ const adjustCommisionHandler = async (req: Request, res: Response) => {
         return res.send("admin undefined")
     } else if (id == adminId) {
         try { /**MongoDb call */
-            switch (req.body.userType) {
-                case "customer":
-                    let updatedCustomer
-                    if (mongoose.Types.ObjectId.isValid(id)) {
-                        updatedCustomer = await CustomerModel.findByIdAndUpdate(id, { $set: req.body }, { new: true })
-                        if (updatedCustomer) {
-                            return res.send(updatedCustomer)
-                        }
-                    }
-                case "dealer":
-                    let updatedDealer
-                    if (mongoose.Types.ObjectId.isValid(id)) {
-                        updatedDealer = await DealerModel.findByIdAndUpdate(id, { $set: req.body }, { new: true })
-                        if (updatedDealer) {
-                            return res.send(updatedDealer)
-                        }
-                    }
-                default:
-                    return res.send("unauthorised")
+            let updatedAdmin
+            if (mongoose.Types.ObjectId.isValid(id)) {
+                updatedAdmin = await AdminModel.findByIdAndUpdate(id, { $set: req.body }, { new: true })
+                if (updatedAdmin) {
+                    return res.send(updatedAdmin)
+                }
             }
 
         } catch (e: any) {
@@ -53,7 +39,7 @@ const createAdminHandler = async (req: Request, res: Response) => {
             return res.send("admin already exist")
         } else if (number < 1) {
             const admin = await AdminModel.create(req.body)
-            return res.send(admin)
+            return res.send(omit(admin.toObject(), "password"))
         }
 
     } catch (e: any) {
@@ -65,7 +51,7 @@ const createAdminHandler = async (req: Request, res: Response) => {
 const getAdminHandler = async (req: Request, res: Response) => {
     try {   /**MongoDb call */
         const admins = await AdminModel.find()
-        return res.send(admins)
+        return res.send(omit(admins, "password"))
     } catch (e: any) {
         logger.error(e);
         return res.status(409).send(e.message);
@@ -87,7 +73,7 @@ const updateAdminHandler = async (req: Request, res: Response) => {
             if (mongoose.Types.ObjectId.isValid(id)) {
                 updatedAdmin = await AdminModel.findByIdAndUpdate(id, { $set: req.body }, { new: true })
                 if (updatedAdmin) {
-                    return res.send(updatedAdmin)
+                    return res.send(omit(updatedAdmin.toObject().toObject(), "password"))
                 }
             }
 

@@ -28,8 +28,6 @@
  *          type: string
  *        _id:
  *          type: string
- *        commission:
- *          type: string
  *        createdAt:
  *          type: string
  *        updatedAt:
@@ -45,8 +43,6 @@
  *            type: string
  *          _id:
  *            type: string
- *          commission:
- *            type: string
  *          createdAt:
  *            type: string
  *          updatedAt:
@@ -57,7 +53,6 @@
  *        - email
  *        - name
  *        - password  
- *        - commision
  *        - _id  
  *      properties:
  *        email:
@@ -66,9 +61,6 @@
  *        name:
  *          type: string
  *          default: Jane Doe
- *        commision:
- *          type: number
- *          default: 5
  *        _id:
  *          type: string
  *          default: "12345"  
