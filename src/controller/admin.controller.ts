@@ -51,7 +51,7 @@ const createAdminHandler = async (req: Request, res: Response) => {
 const getAdminHandler = async (req: Request, res: Response) => {
     try {   /**MongoDb call */
         const admins = await AdminModel.find()
-        return res.send(omit(admins, "password"))
+        return res.send(admins)
     } catch (e: any) {
         logger.error(e);
         return res.status(409).send(e.message);
