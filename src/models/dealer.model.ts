@@ -6,7 +6,6 @@ export interface DealerInput {
     email: string;
     name: string;
     password: string
-    company: string;
 
 }
 
@@ -35,11 +34,7 @@ const dealerSchema = new mongoose.Schema(
             type: String,
             required: [true, "Please enter password"],
             minlength: [6, "minimum password length is 6 characters"]
-        },
-        company: {
-            type: String,
-            required: [true, "Please enter Company name"],
-        },
+        }
 
     },
     {
