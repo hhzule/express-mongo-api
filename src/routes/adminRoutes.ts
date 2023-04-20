@@ -21,7 +21,7 @@ function adminRoutes(app: Express) {
    *     description: delete admin
    *   - name: get admin
    *     description: get admin
-   * '/adjustcommision':
+   * '/adjustcommission':
    *  post:
    *     tags:
    *     - commission adjustment by admin
@@ -44,7 +44,7 @@ function adminRoutes(app: Express) {
    *      400:
    *        description: unauthorised
    */
-  app.post('/adjustcommision', AdminController.adjustCommisionHandler)
+  app.post('/adjustcommission', AdminController.adjustCommissionHandler)
 
   /**
    * @openapi

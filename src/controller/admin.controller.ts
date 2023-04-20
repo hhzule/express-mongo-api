@@ -5,7 +5,7 @@ import AdminModel from "../models/admin.model"
 import { omit } from "lodash";
 
 
-const adjustCommisionHandler = async (req: Request, res: Response) => {
+const adjustCommissionHandler = async (req: Request, res: Response) => {
     const id = req.body.auth
     const admin: any = await AdminModel.find();
     const adminId = admin[0]?._id.toString()
@@ -119,7 +119,7 @@ const deleteAdminHandler = async (req: Request, res: Response) => {
 };
 
 export default {
-    adjustCommisionHandler,
+    adjustCommissionHandler,
     createAdminHandler,
     getAdminHandler,
     updateAdminHandler,
