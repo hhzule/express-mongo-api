@@ -6,6 +6,7 @@ export interface WatchesInput {
     price: number;
     owner: string;
     status: string;
+    imgUrl: string
 }
 
 export interface WatchDocument extends WatchesInput, mongoose.Document {
@@ -35,6 +36,10 @@ const watchSchema = new mongoose.Schema(
             type: String,
             required: true,
             default: "pending"
+        },
+        imgUrl: {
+            type: Number,
+            required: [true, "Please enter image"],
         },
     },
     {

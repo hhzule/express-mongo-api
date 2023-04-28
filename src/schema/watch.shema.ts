@@ -11,6 +11,7 @@
  *        - owner
  *        - price
  *        - status
+ *        - imgUrl  
  *      properties:
  *        name:
  *          type: string
@@ -27,6 +28,9 @@
  *        status:
  *          type: string
  *          default: approval pending
+ *        imgUrl:
+ *          type: string
+ *          default: watch.png  
  *    CreateWatchResponse:
  *      type: object
  *      properties:
@@ -45,6 +49,9 @@
  *        status:
  *          type: string
  *          default: approval pend
+ * *      imgUrl:
+ *          type: string
+ *          default: watch.png  
  *        _id:
  *          type: string
  *        createdAt:
@@ -68,6 +75,8 @@
  *            type: string  
  *          status:
  *            type: string  
+ *          imgUrl:
+ *            type: string
  *          createdAt:
  *            type: string
  *          updatedAt:
@@ -80,6 +89,7 @@
  *        - owner
  *        - price
  *        - status 
+ *        - imgUrl  
  *        - _id  
  *      properties:
  *        model:
@@ -99,5 +109,8 @@
  *          default: 3000   
  *        status:
  *          type: string
+ *        imgUrl:
+ *          type: string
+ *          default: watch.png  
  *
  */
