@@ -49,7 +49,7 @@
  *        status:
  *          type: string
  *          default: approval pend
- * *      imgUrl:
+ *        imgUrl:
  *          type: string
  *          default: watch.png  
  *        _id:

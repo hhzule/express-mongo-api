@@ -38,7 +38,7 @@ const watchSchema = new mongoose.Schema(
             default: "pending"
         },
         imgUrl: {
-            type: Number,
+            type: String,
             required: [true, "Please enter image"],
         },
     },
