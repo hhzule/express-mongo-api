@@ -7,6 +7,17 @@ export interface DealerInput {
     name: string;
     password: string
 
+
+    businessName: string;
+    businessRegCertificate: string;
+    phoneNumber: string;
+    emergencyNumber: string;
+    businessAddress: string;
+    brandName: string;
+    serialNumber: string;
+    model: string;
+    offers: string;
+
 }
 
 export interface DealerDocument extends DealerInput, mongoose.Document {
@@ -34,7 +45,48 @@ const dealerSchema = new mongoose.Schema(
             type: String,
             required: [true, "Please enter password"],
             minlength: [6, "minimum password length is 6 characters"]
-        }
+        },
+
+
+        businessName: {
+            type: String,
+            required: [true, "Please enter business name"],
+        },
+        businessRegCertificate: {
+            type: String,
+            required: [true, "Please enter business Registration Certificate"],
+        },
+        phoneNumber: {
+            type: String,
+            required: [true, "Please enter phone number"],
+        },
+        emergencyNumber: {
+            type: String,
+            required: [true, "Please enter emergency number"],
+        },
+        businessAddress: {
+            type: String,
+            required: [true, "Please enter business address"],
+        },
+        brandName: {
+            type: String,
+            required: [true, "Please enter brand name"],
+        },
+        serialNumber: {
+            type: String,
+            required: [true, "Please enter name"],
+        },
+        model: {
+            type: String,
+            required: [true, "Please enter serial number"],
+        },
+        offers: {
+            type: String,
+            required: [true, "Please enter offers"],
+        },
+
+
+
 
     },
     {

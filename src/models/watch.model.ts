@@ -6,7 +6,18 @@ export interface WatchesInput {
     price: number;
     owner: string;
     status: string;
-    imgUrl: string
+    imgUrl: string;
+
+    serialNumber: string;
+    caseMaterial: string;
+    braceletMaterial: string;
+    movementModel: string;
+    movementSerial: string;
+    movementMechanism: string;
+    dialColor: string;
+    hands: string;
+    featue: string;
+
 }
 
 export interface WatchDocument extends WatchesInput, mongoose.Document {
@@ -40,6 +51,43 @@ const watchSchema = new mongoose.Schema(
         imgUrl: {
             type: String,
             required: [true, "Please enter image"],
+        },
+        serialNumber: {
+            type: String,
+            required: [true, "Please enter serialNumber"],
+        },
+        caseMaterial: {
+            type: String,
+            required: [true, "Please enter caseMaterial"],
+        },
+        braceletMaterial: {
+            type: String,
+            required: [true, "Please enter braceletMaterial"],
+        },
+        movementModel: {
+            type: Number,
+            required: [true, "Please enter movementModel"],
+        },
+        movementSerial: {
+            type: String,
+            required: [true, "Please enter movementSerial"],
+
+        },
+        movementMechanism: {
+            type: String,
+            required: [true, "Please enter movementMechanism"],
+        },
+        dialColor: {
+            type: String,
+            required: [true, "Please enter dialColor"],
+        },
+        hands: {
+            type: String,
+            required: [true, "Please enter hands"],
+        },
+        featue: {
+            type: String,
+            required: [true, "Please enter featue"],
         },
     },
     {
