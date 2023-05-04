@@ -65,7 +65,7 @@ const watchSchema = new mongoose.Schema(
             required: [true, "Please enter braceletMaterial"],
         },
         movementModel: {
-            type: Number,
+            type: String,
             required: [true, "Please enter movementModel"],
         },
         movementSerial: {
