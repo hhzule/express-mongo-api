@@ -16,7 +16,7 @@ export interface WatchesInput {
     movementMechanism: string;
     dialColor: string;
     hands: string;
-    featue: string;
+    feature: string;
 
 }
 
@@ -85,7 +85,7 @@ const watchSchema = new mongoose.Schema(
             type: String,
             required: [true, "Please enter hands"],
         },
-        featue: {
+        feature: {
             type: String,
             required: [true, "Please enter featue"],
         },
