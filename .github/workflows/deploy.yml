@@ -24,9 +24,8 @@ jobs:
         run: |
           yarn install
           yarn build
-          cd build
-          yarn install
-          pm2 restart src/app.js
+          cd build && yarn install
+          cd build && pm2 restart src/app.js
 #         env: 
 #           CI: true   
 
