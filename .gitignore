@@ -6,6 +6,7 @@ sshkp.pem
 *.pem
 /build
 makefile
+__test__
 
 
         
