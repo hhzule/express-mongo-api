@@ -5,6 +5,7 @@ command.md
 sshkp.pem
 *.pem
 /build
+makefile
 
 
         
