@@ -20,15 +20,15 @@ jobs:
         with:
          node-version: ${{ matrix.node-version }}
       - name: npm install and build
-#         run: |
-#           yarn install
-#           yarn build
-#           cd build && yarn install
-#           cd build && pm2 restart src/app.js
-      - run: yarn install
-      - run: yarn build
-      - run: cd build && yarn install
-      - run: pm2 restart src/app.js
+        run: |
+          yarn install
+          yarn build
+          cd build && yarn install
+          pm2 restart src/app.js
+#       - run: yarn install
+#       - run: yarn build
+#       - run: cd build && yarn install
+#       - run: pm2 restart src/app.js
 #         env: 
 #           CI: true   
 
