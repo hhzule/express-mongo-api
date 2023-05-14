@@ -1,1 +1,27 @@
-    
+  name: CICD for EC@ server
+ 
+on:
+  push:
+    branches:
+        - main
+     
+
+jobs:
+  build:
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use node js
+        uses: actions/setup-node@v1
+        with:
+         node-version: ${{ matrix.node-version }}
+      - name: npm install and build
+        run: |
+          yarn install
+          yarn build
+          cd build && yarn install
+          pm2 restart src/app.js  
