@@ -11,7 +11,7 @@ function adminRoutes(app: Express) {
   /**
    * @openapi
    * tags:
-   *   - name: commission adjustment by admin
+   *   - name: commission adjustment by Admin
    *     description: commission adjustment by admin
    *   - name: create admin
    *     description: admin created
