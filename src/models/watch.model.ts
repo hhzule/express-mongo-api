@@ -7,7 +7,7 @@ export interface WatchesInput {
     owner: string;
     status: string;
     imgUrl: string;
-
+    creator: mongoose.Schema.Types.ObjectId,
     serialNumber: string;
     caseMaterial: string;
     braceletMaterial: string;
@@ -35,6 +35,11 @@ const watchSchema = new mongoose.Schema(
             type: String,
             required: [true, "Please enter model name"],
         },
+        creator: {
+            type: mongoose.Schema.Types.ObjectId,
+            // ref: "Dealer",
+            // required: [true, "Please enter creator id"],
+          },
         owner: {
             type: String,
             required: [true, "Please enter owner name"],

@@ -150,6 +150,8 @@ function watchRoutes(app: Express) {
    *        description: Bad request
    */
   app.get('/watch', WatchController.getWatchByIdHandler)
+  app.get('/watches/:id', WatchController.getWatchByCreatorIdHandler)
+ 
 
 
 }

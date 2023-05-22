@@ -88,10 +88,32 @@ const getWatchByIdHandler = async (req: Request, res: Response) => {
     }
 };
 
+const getWatchByCreatorIdHandler = async (req: Request, res: Response) => {
+    const id = req.params.id
+
+    // 6454f5f41e0c5fb13f842edb
+    try {
+        /**MongoDb call */
+        let Watches
+        if (mongoose.Types.ObjectId.isValid(id)) {
+            Watches = await WatchModel.find({creator: id})
+            if (Watches) {
+                return res.send(Watches)
+            }
+        } else {
+            return res.send("no watch exits")
+        }
+    } catch (e: any) {
+        logger.error(e);
+        return res.status(409).send(e.message);
+    }
+};
+
 export default {
     createWatchHandler,
     getAllWatchesHandler,
     updateWatchHandler,
     deleteWatchHandler,
-    getWatchByIdHandler
+    getWatchByIdHandler,
+    getWatchByCreatorIdHandler
 }
