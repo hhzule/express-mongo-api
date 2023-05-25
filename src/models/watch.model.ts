@@ -93,6 +93,7 @@ const watchSchema = new mongoose.Schema(
             type: String,
             required: [true, "Please enter featue"],
         },
+        
     },
     {
         timestamps: true,

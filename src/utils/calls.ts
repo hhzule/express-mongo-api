@@ -27,6 +27,6 @@ export const mint = async (adresses:[] , quantity:[] , key : string) => {
         console.log('Args:', result);
         return result
     } catch (error) {
-
+        
     }
 } 

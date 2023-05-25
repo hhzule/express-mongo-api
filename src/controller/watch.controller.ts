@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import mongoose from "mongoose";
 import logger from "../utils/logger";
 import WatchModel from "../models/watch.model";
+import TransactionModel from "../models/transaction.model";
 
 
 
@@ -19,6 +20,8 @@ const createWatchHandler = async (req: Request, res: Response) => {
 
 const getAllWatchesHandler = async (req: Request, res: Response) => {
     try {   /**MongoDb call */
+         const transactions = await TransactionModel.find();
+        console.log(transactions)
         const watches = await WatchModel.find()
         return res.send(watches)
     } catch (e: any) {

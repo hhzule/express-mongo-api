@@ -2,6 +2,8 @@ import  {ethers}   from "ethers";
 import { address_1337 } from "../../package/1337";
 import abi from "../../package/ABIs/WatchNFT.json"
 import { provider } from "../utils/provider";
+import { createTransactionHandler } from "../controller/transaction.controller";
+import { Request, Response } from 'express';
 
 
 const listen =()=>{
@@ -14,19 +16,27 @@ const listen =()=>{
         // const filter = contract.filters. Transfer('0x0000000000000000000000000000000000000000', null);
         console.log("HERE")
         // Listen to Transfer events
-        contract.on('Transfer', async ( from: string, minterAddress: string, tokenId: string) => {
+        contract.on('Transfer', async ( from: string, to: string, tokenId: string,event) => {
         console.log('Transfer Event:');
         console.log('Result:', from);
-        // console.log('Result:', result.log.args);
-        // let params = result.log.args;
-        // from = params[0];
-        // minterAddress = params[1];
-        // tokenId = params[2];
-        // console.log('from:', from);
-        console.log('To:', minterAddress);
+        console.log('HASH:',  event.transactionHash);
+        console.log('To:', to);
         console.log('Token ID:', tokenId);
-        // const body = { tokenId, minterAddress };
-       //     await createNFT({body})
+         const body = { tokenId , from, to , hash : event.transactionHash};
+
+         const req: Request = {
+            body: body
+          } as Request;
+          
+          const res: Response = {
+            status: () => res,
+            json: (data:any) => {
+              console.log('Transaction created successfully!', data);
+              return res;
+            }
+          } as unknown as Response;
+          
+            await createTransactionHandler(req, res)
           });
 
         } catch (error) {
