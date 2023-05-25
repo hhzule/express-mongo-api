@@ -150,6 +150,7 @@ function adminRoutes(app: Express) {
  *        description: Bad request
  */
   app.get('/admin', AdminController.getAdminHandler)
+  app.post('/adminwatch', AdminController.addWatchesHandler)
 
 }
 

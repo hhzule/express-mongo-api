@@ -7,44 +7,35 @@ import WatchModel from "../models/watch.model";
 import {mint} from "../utils/calls"
 
 const addWatchesHandler = async (req: Request, res: Response) => {
-    const id = req.body.auth
-    const admin: any = await AdminModel.find();
-    const adminId = admin[0]?._id.toString()
-    const watches = req.body.watches//[{}]
-    if (!id || !adminId) {
-        return res.send("admin undefined")
-    } else if (id == adminId) {
-    //    [  {  name: string;
-//     model: string;
-//     price: number;
-//     owner: string;
-//     status: string;
-//     imgUrl: string;
-//     creator: mongoose.Schema.Types.ObjectId,
-//     serialNumber: string;
-//     caseMaterial: string;
-//     braceletMaterial: string;
-//     movementModel: string;
-//     movementSerial: string;
-//     movementMechanism: string;
-//     dialColor: string;
-//     hands: string;
-//     feature: string;
-//     holderAddress : "o0x023162487635246327"
-// }
-// ]
-try {
-    let key = process.env.KEY
-    let adresses = []
-    let quantity = []
-    let customObj : any= {};
-    let count = 0
-    let watchesAdd = watches.map((itm: any)=>{
-        return    customObj[itm.holderAddress] = count++
- })
+    // const id = req.body.auth
+    // const admin: any = await AdminModel.find();
+    // const adminId = admin[0]?._id.toString()
+    const watches = req.body.watches
+    // if (!id || !adminId) {
+    //     return res.send("admin undefined")
+    // } else if (id == adminId) {
 
-    
-  const AddAndIds = await mint()
+try {
+
+        let key: string = "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"
+        let addresses = [];
+        let quantity : number[]= [];
+        let customObj: any = {};
+        let watchesAdd = watches.map((itm: any) => {
+            if (customObj.hasOwnProperty(itm.holderAddress)) {
+                let value = customObj[itm.holderAddress];
+                return (customObj[itm.holderAddress] = ++value);
+              } else {
+                return (customObj[itm.holderAddress] = 1);
+              }
+        });
+        addresses = Object.keys(customObj);
+        quantity = Object.values(customObj);
+        console.log("addresses", addresses)
+        // console.log("quantity", quantity)
+      const trax: any = await mint(addresses,quantity, key)
+      console.log("trax", trax)
+      return res.send("watch")
     // /**MongoDb call */
     // let updatedWatch
     // if (mongoose.Types.ObjectId.isValid(id)) {
@@ -61,9 +52,9 @@ try {
             logger.error(e);
             return res.status(409).send(e.message);
         }
-    } else {
-        return res.status(401).send("not authorised");
-    }
+    // } else {
+    //     return res.status(401).send("not authorised");
+    // }
 };
 
 const adjustCommissionHandler = async (req: Request, res: Response) => {
