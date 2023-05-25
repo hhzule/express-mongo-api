@@ -17,7 +17,6 @@ export interface WatchesInput {
     dialColor: string;
     hands: string;
     feature: string;
-
 }
 
 export interface WatchDocument extends WatchesInput, mongoose.Document {
