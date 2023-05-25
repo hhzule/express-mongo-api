@@ -17,6 +17,8 @@ export interface WatchesInput {
     dialColor: string;
     hands: string;
     feature: string;
+    tokenId: string;
+    holderAddress: string;
 }
 
 export interface WatchDocument extends WatchesInput, mongoose.Document {
@@ -92,6 +94,14 @@ const watchSchema = new mongoose.Schema(
         feature: {
             type: String,
             required: [true, "Please enter featue"],
+        },
+        tokenId: {
+            type: String,
+            // required: [true, "Please enter featue"],
+        },
+        holderAddress: {
+            type: String,
+            required: [true, "Please Wallet Address"],
         },
     },
     {
