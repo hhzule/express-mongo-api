@@ -1,5 +1,6 @@
 import { Express, Request, Response } from 'express'
 import CustomerController from '../controller/customer.controller'
+import walleteGenerate from "./../middleware/walleteGenerate"
 
 function customerRoutes(app: Express) {
   /**
@@ -54,7 +55,7 @@ function customerRoutes(app: Express) {
    *        description: Bad request
    */
 
-  app.post('/customer', CustomerController.createCustomerHandler)
+  app.post('/customer',walleteGenerate, CustomerController.createCustomerHandler)
 
   /**
    * @openapi
@@ -163,7 +164,7 @@ function customerRoutes(app: Express) {
    *      400:
    *        description: Bad request
    */
-  app.get('/customer', CustomerController.getCustomerByIdHandler)
+  app.patch('/customer', CustomerController.getCustomerByIdHandler)
 }
 
 export default customerRoutes
