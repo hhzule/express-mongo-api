@@ -3,7 +3,68 @@ import logger from "../utils/logger";
 import mongoose from "mongoose";
 import AdminModel from "../models/admin.model"
 import { omit } from "lodash";
+import WatchModel from "../models/watch.model";
+import {mint} from "../utils/calls"
 
+const addWatchesHandler = async (req: Request, res: Response) => {
+    const id = req.body.auth
+    const admin: any = await AdminModel.find();
+    const adminId = admin[0]?._id.toString()
+    const watches = req.body.watches//[{}]
+    if (!id || !adminId) {
+        return res.send("admin undefined")
+    } else if (id == adminId) {
+    //    [  {  name: string;
+//     model: string;
+//     price: number;
+//     owner: string;
+//     status: string;
+//     imgUrl: string;
+//     creator: mongoose.Schema.Types.ObjectId,
+//     serialNumber: string;
+//     caseMaterial: string;
+//     braceletMaterial: string;
+//     movementModel: string;
+//     movementSerial: string;
+//     movementMechanism: string;
+//     dialColor: string;
+//     hands: string;
+//     feature: string;
+//     holderAddress : "o0x023162487635246327"
+// }
+// ]
+try {
+    let key = process.env.KEY
+    let adresses = []
+    let quantity = []
+    let customObj : any= {};
+    let count = 0
+    let watchesAdd = watches.map((itm: any)=>{
+        return    customObj[itm.holderAddress] = count++
+ })
+
+    
+  const AddAndIds = await mint()
+    // /**MongoDb call */
+    // let updatedWatch
+    // if (mongoose.Types.ObjectId.isValid(id)) {
+    //     updatedWatch = await WatchModel.findByIdAndUpdate(id, { $set: data }, { new: true })
+    //     if (updatedWatch) {
+    //         return res.send(updatedWatch)
+    //     }
+    // } else {
+    //     return res.status(409).send("item doesn't exist");
+    // }
+    // const watch = await WatchModel.create(req.body)
+    // return res.send(watch)
+        } catch (e: any) {
+            logger.error(e);
+            return res.status(409).send(e.message);
+        }
+    } else {
+        return res.status(401).send("not authorised");
+    }
+};
 
 const adjustCommissionHandler = async (req: Request, res: Response) => {
     const id = req.body.auth
@@ -119,6 +180,7 @@ const deleteAdminHandler = async (req: Request, res: Response) => {
 };
 
 export default {
+    addWatchesHandler,
     adjustCommissionHandler,
     createAdminHandler,
     getAdminHandler,

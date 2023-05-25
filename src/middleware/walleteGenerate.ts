@@ -6,6 +6,7 @@ import bcrypt from 'bcrypt';
 function walleteGenerate(req: Request, res: Response, next: NextFunction) {
   try {
     // Generate a new wallet
+    console.log("middleware ren")
     const wallet = ethers.Wallet.createRandom();
 
     // Encrypt the private key

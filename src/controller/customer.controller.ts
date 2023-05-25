@@ -4,12 +4,25 @@ import logger from "../utils/logger";
 import CustomerModel from "../models/customer.model";
 import { omit } from "lodash"
 
+export type OutputObj = {
+    email?: string;
+    name?: string;
+    password?: string;
+    walletAddress?: string;
+    encryptedPrivateKey?: string;
+}
 
 const createCustomerHandler = async (req: Request, res: Response) => {
-    console.log(req.body);
+    console.log("api ran",req.body);
+    let body = req.body;
+    body["walletAddress"] = req.body.walletAddress;
+    body["encryptedPrivateKey"] = req.body.encryptedPrivateKey;
+    
+
     try { /**MongoDb call */
         const customer = await CustomerModel.create(req.body)
-        return res.send(omit(customer.toObject(), "password"))
+        let obj: OutputObj = omit(customer.toObject(), "password");
+      return res.send(obj)
     } catch (e: any) {
         logger.error(e);
         return res.status(409).send(e.message);
@@ -65,16 +78,21 @@ const deleteCustomerHandler = async (req: Request, res: Response) => {
 };
 
 const getCustomerByIdHandler = async (req: Request, res: Response) => {
-    const id = req.body._id;
+    const id = req.body.id
     try {
         /**MongoDb call */
         let Customer
         if (mongoose.Types.ObjectId.isValid(id)) {
             Customer = await CustomerModel.findById(id)
+            console.log("customer", Customer)
             if (Customer) {
+                console.log("Customer found")
                 return res.send(omit(Customer.toObject(), "password"))
             } else {
-                return res.send("no such customer exits")
+                console.log("Customer not found")
+                return res.status(401).send({
+                    message: "User not found"
+                })
             }
         }
     } catch (e: any) {
@@ -82,6 +100,28 @@ const getCustomerByIdHandler = async (req: Request, res: Response) => {
         return res.status(409).send(e.message);
     }
 };
+
+// const getCustomer = async (req: Request, res: Response) => {
+//     const email = req.params.email
+//     try { /**MongoDb call */
+           
+//           const user = await CustomerModel.findOne({email: email})
+//              console.log("user", user)
+//         if (user === null) {
+//                     return res.status(401).send({
+//                         message: "User not found"
+//                     })
+                       
+//                 }
+//                     return res.send(user)
+                
+        
+
+//         } catch (e: any) {
+//             logger.error(e);
+//             return res.status(409).send(e.message);
+//         }
+// };
 
 export default {
     createCustomerHandler,

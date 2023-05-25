@@ -5,9 +5,7 @@ import config from "config";
 export interface DealerInput {
     email: string;
     name: string;
-    password: string
-
-
+    password: string;
     businessName: string;
     businessRegCertificate: string;
     phoneNumber: string;
