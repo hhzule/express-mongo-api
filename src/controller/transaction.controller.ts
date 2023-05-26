@@ -21,6 +21,25 @@ const createTransactionHandler = async (req: Request, res: Response) => {
   }
 };
 
+const appendTransactionHandler = async (req: Request, res: Response) => {
+  try {
+    const { tokenId, to } = req.body;
+
+    // Create a new transaction
+    const transaction = await TransactionModel.create(req.body);
+
+   // Update the holderAddress in the WatchModel for the corresponding tokenId
+    await WatchModel.updateOne({ tokenId }, { holderAddress:to });
+
+
+    // Return the created transaction as the response
+    return res.status(201).json(transaction);
+  } catch (error: any) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
 
 // Controller to get all transactions
 const getAllTransactionsHandler = async (req: Request, res: Response) => {
@@ -64,7 +83,7 @@ const getAllTransactionsHandler = async (req: Request, res: Response) => {
       };
   
       // Return the response as JSON
-      return res.json(response);
+      return res.send(response);
     } catch (error: any) {
       console.error(error);
       return res.status(500).json({ error: 'Internal Server Error' });
@@ -73,4 +92,4 @@ const getAllTransactionsHandler = async (req: Request, res: Response) => {
 
 
   
-  export { getAllTransactionsHandler, getTransactionByTokenIdHandler , createTransactionHandler };
+  export default { getAllTransactionsHandler, getTransactionByTokenIdHandler , createTransactionHandler , appendTransactionHandler};
