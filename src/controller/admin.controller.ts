@@ -10,7 +10,7 @@ const addWatchesHandler = async (req: Request, res: Response) => {
     // const id = req.body.auth
     // const admin: any = await AdminModel.find();
     // const adminId = admin[0]?._id.toString()
-    const watches = req.body.watches
+    const data = req.body.watches
     // if (!id || !adminId) {
     //     return res.send("admin undefined")
     // } else if (id == adminId) {
@@ -21,7 +21,7 @@ try {
         let addresses = [];
         let quantity : number[]= [];
         let customObj: any = {};
-        let watchesAdd = watches.map((itm: any) => {
+        let watchesAdd = data.map((itm: any) => {
             if (customObj.hasOwnProperty(itm.holderAddress)) {
                 let value = customObj[itm.holderAddress];
                 return (customObj[itm.holderAddress] = ++value);
@@ -31,23 +31,39 @@ try {
         });
         addresses = Object.keys(customObj);
         quantity = Object.values(customObj);
-        console.log("addresses", addresses)
-        // console.log("quantity", quantity)
+
       const trax: any = await mint(addresses,quantity, key)
-      console.log("trax", trax)
-      return res.send("watch")
-    // /**MongoDb call */
-    // let updatedWatch
-    // if (mongoose.Types.ObjectId.isValid(id)) {
-    //     updatedWatch = await WatchModel.findByIdAndUpdate(id, { $set: data }, { new: true })
-    //     if (updatedWatch) {
-    //         return res.send(updatedWatch)
-    //     }
-    // } else {
-    //     return res.status(409).send("item doesn't exist");
-    // }
-    // const watch = await WatchModel.create(req.body)
-    // return res.send(watch)
+    /**MongoDb call */
+    let updatedWatch
+    if (trax.length > 0) {
+        let finalObj = [];
+
+        for (let i = 0; i < data.length; i++) {
+          for (let j = 0; j < trax.length; j++) {
+            if (
+              data[i].holderAddress.toLocaleLowerCase() ===
+              trax[j].to.toLocaleLowerCase()
+            ) {
+              let newObj = data[i];
+              newObj.tokenId = trax[j].tokenId;
+              finalObj.push(newObj);
+              trax[j].to = "";
+              break;
+            }
+          }
+        }
+
+
+        finalObj.map(async (itm: any)=>{
+            updatedWatch = await WatchModel.findByIdAndUpdate(itm._id, { $set: itm }, { new: true })
+        })
+       
+        if (updatedWatch) {
+            return res.send(updatedWatch)
+        }
+    } else {
+        return res.status(409).send("item doesn't exist");
+    }
         } catch (e: any) {
             logger.error(e);
             return res.status(409).send(e.message);
