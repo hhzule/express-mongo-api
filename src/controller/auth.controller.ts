@@ -6,7 +6,7 @@ import DealerModel from "../models/dealer.model"
 import { omit } from "lodash";
 
 
-const getCustomerByEmailHandler = async (req: Request, res: Response) => {
+const getDealerByEmailHandler = async (req: Request, res: Response) => {
     const email = req.params.email
     console.log("email", email)
     // const password = req.body.password
@@ -17,7 +17,7 @@ const getCustomerByEmailHandler = async (req: Request, res: Response) => {
              console.log("user", user)
         if (user === null) {
                     return res.status(401).send({
-                        message: "User not found"
+                        message: "Dealer not found"
                     })
                        
                 }
@@ -33,5 +33,5 @@ const getCustomerByEmailHandler = async (req: Request, res: Response) => {
 };
 
 export default {
-    getCustomerByEmailHandler 
+    getDealerByEmailHandler 
 }

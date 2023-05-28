@@ -151,6 +151,7 @@ function watchRoutes(app: Express) {
    */
   app.get('/watch', WatchController.getWatchByIdHandler)
   app.get('/watches/:id', WatchController.getWatchByCreatorIdHandler)
+  app.get('/watchmetadata/:id', WatchController.getWatchMetadata)
  
 
 

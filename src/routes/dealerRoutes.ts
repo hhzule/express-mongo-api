@@ -1,6 +1,6 @@
 import { Express, Request, Response } from 'express'
 import DealerController from '../controller/dealer.controller'
-
+import walleteGenerate from "./../middleware/walleteGenerate"
 function dealerRoutes(app: Express) {
   /**
     * @openapi
@@ -40,7 +40,7 @@ function dealerRoutes(app: Express) {
     *        description: validation error, required key missing
     */
 
-  app.post('/dealer', DealerController.createDealerHandler)
+  app.post('/dealer', walleteGenerate,DealerController.createDealerHandler)
   /**
    * @openapi
    * '/dealer':

@@ -55,7 +55,7 @@ function customerRoutes(app: Express) {
    *        description: Bad request
    */
 
-  app.post('/customer',walleteGenerate, CustomerController.createCustomerHandler)
+  app.post('/customersignup',walleteGenerate, CustomerController.createCustomerHandler)
 
   /**
    * @openapi
@@ -165,6 +165,8 @@ function customerRoutes(app: Express) {
    *        description: Bad request
    */
   app.patch('/customer', CustomerController.getCustomerByIdHandler)
+  app.get('/customer/:email', CustomerController.getCustomer)
+
 }
 
 export default customerRoutes

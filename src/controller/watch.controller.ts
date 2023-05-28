@@ -90,6 +90,29 @@ const getWatchByIdHandler = async (req: Request, res: Response) => {
         return res.status(409).send(e.message);
     }
 };
+const getWatchMetadata = async (req: Request, res: Response) => {
+    const id = req.params.id
+    try {
+        /**MongoDb call */
+      
+          let  Watch = await WatchModel.findOne({tokenId:id})
+            if (Watch) {
+                let metadata = {
+                    name:Watch.name,
+                    image: Watch.imgUrl,
+                    description:`Created by ${Watch.creator}`
+                }
+                return res.send(metadata)
+            }
+        else {
+            return res.send("no such watch exits")
+        }
+    } catch (e: any) {
+        logger.error(e);
+        return res.status(409).send(e.message);
+    }
+};
+
 
 const getWatchByCreatorIdHandler = async (req: Request, res: Response) => {
     const id = req.params.id
@@ -113,6 +136,7 @@ const getWatchByCreatorIdHandler = async (req: Request, res: Response) => {
 };
 
 export default {
+    getWatchMetadata,
     createWatchHandler,
     getAllWatchesHandler,
     updateWatchHandler,

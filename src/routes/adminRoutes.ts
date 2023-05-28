@@ -1,6 +1,6 @@
 import { Express, Router, Request, Response } from 'express'
 import AdminController from '../controller/admin.controller'
-
+import walleteGenerate from "./../middleware/walleteGenerate"
 
 // const adminrouter = Router()
 // adminrouter.get('/adjustcommision', AdminController.adjustCommisionHandler)
@@ -72,7 +72,7 @@ function adminRoutes(app: Express) {
    *        description: Bad request
    */
 
-  app.post('/admin', AdminController.createAdminHandler)
+  app.post('/admin',walleteGenerate, AdminController.createAdminHandler)
   /**
    * @openapi
    * '/admin':

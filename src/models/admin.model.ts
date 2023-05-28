@@ -4,7 +4,9 @@ export interface AdminInput {
     email: string;
     name: string;
     password: string;
-    commission: string
+    commission: string,
+    walletAddress: string;
+    encryptedPrivateKey: string;
 }
 
 export interface AdminDocument extends AdminInput, mongoose.Document {
@@ -36,6 +38,14 @@ const adminSchema = new mongoose.Schema(
             type: Number,
             required: true,
             default: 1
+        },
+        walletAddress: {
+            type: String,
+            required: [true, "Please enter walletAddress"],
+        },
+        encryptedPrivateKey: {
+            type: String,
+            required: [true, "Please enter encryptedPrivateKey"],
         },
     },
     {

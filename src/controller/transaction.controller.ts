@@ -60,6 +60,7 @@ const getAllTransactionsHandler = async (req: Request, res: Response) => {
   // Controller to get transactions by tokenId
   const getTransactionByTokenIdHandler = async (req: Request, res: Response) => {
     const tokenId = req.params.tokenId;
+    // const TID =tokenId.toString();
   
     try {
       // Retrieve transactions with the specified tokenId from the database
@@ -72,6 +73,7 @@ const getAllTransactionsHandler = async (req: Request, res: Response) => {
   
       // Retrieve watch details (name and owner) based on the tokenId from the watches model
       const watchDetails = await WatchModel.findOne({ tokenId });
+      console.log("detail", watchDetails)
   
       // Prepare the response object by combining transaction data with watch details
       const response: {

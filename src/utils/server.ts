@@ -4,6 +4,7 @@ import customerRoutes from "../routes/customerRoutes";
 import watchRoutes from "../routes/watchRoutes";
 import adminRoutes from "../routes/adminRoutes"
 import authRoutes from "../routes/authRoutes";
+import transactionRoutes from "../routes/transactionRoutes";
 // import adminrouter from "../routes/adminRoutes"
 import cors from "cors"
 
@@ -17,6 +18,7 @@ function createServer() {
     watchRoutes(app)
     adminRoutes(app)
     authRoutes(app)
+    transactionRoutes(app)
     return app;
 }
 

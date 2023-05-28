@@ -101,29 +101,30 @@ const getCustomerByIdHandler = async (req: Request, res: Response) => {
     }
 };
 
-// const getCustomer = async (req: Request, res: Response) => {
-//     const email = req.params.email
-//     try { /**MongoDb call */
+const getCustomer = async (req: Request, res: Response) => {
+    const email = req.params.email
+    try { /**MongoDb call */
            
-//           const user = await CustomerModel.findOne({email: email})
-//              console.log("user", user)
-//         if (user === null) {
-//                     return res.status(401).send({
-//                         message: "User not found"
-//                     })
+          const user = await CustomerModel.findOne({email: email})
+             console.log("user", user)
+        if (user === null) {
+                    return res.status(401).send({
+                        message: "Customer not found"
+                    })
                        
-//                 }
-//                     return res.send(user)
+                }
+                    return res.send(user)
                 
         
 
-//         } catch (e: any) {
-//             logger.error(e);
-//             return res.status(409).send(e.message);
-//         }
-// };
+        } catch (e: any) {
+            logger.error(e);
+            return res.status(409).send(e.message);
+        }
+};
 
 export default {
+    getCustomer,
     createCustomerHandler,
     getAllCustomersHandler,
     updateCustomerHandler,

@@ -4,8 +4,8 @@ export interface CustomerInput {
     email: string;
     name: string;
     password: string;
-    walletAddress: string;
-    encryptedPrivateKey: string;
+    walletAddress?: string;
+    encryptedPrivateKey?: string;
 
 }
 
@@ -36,11 +36,9 @@ const userSchema = new mongoose.Schema(
         },
         walletAddress: {
             type: String,
-            required: [true, "Please enter walletAddress"],
         },
         encryptedPrivateKey: {
             type: String,
-            required: [true, "Please enter encryptedPrivateKey"],
         },
     },
     {

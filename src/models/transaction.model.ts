@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 export interface TransactionInput {
-  tokenId: number;
+  tokenId: string;
   hash: string;
   time: Date;
   from: string;
@@ -16,7 +16,7 @@ export interface TransactionDocument extends TransactionInput, mongoose.Document
 const transactionSchema = new mongoose.Schema(
   {
     tokenId: {
-      type: Number,
+      type: String,
       required: true,
     },
     hash: {

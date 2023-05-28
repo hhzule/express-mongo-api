@@ -3,7 +3,7 @@ import AuthController from '../controller/auth.controller'
 
 function authRoutes(app: Express) {
 
-    app.get('/signin/:email', AuthController.getCustomerByEmailHandler)
+    app.get('/signin/:email', AuthController.getDealerByEmailHandler)
     }
 
     export default authRoutes

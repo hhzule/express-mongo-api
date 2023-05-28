@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 
 // Middleware function
 function walleteGenerate(req: Request, res: Response, next: NextFunction) {
+  console.log("req",req)
   try {
     // Generate a new wallet
     console.log("middleware ren")
@@ -15,7 +16,7 @@ function walleteGenerate(req: Request, res: Response, next: NextFunction) {
     // Append wallet and encrypted private key to req.body
     req.body.walletAddress = wallet.address;
     req.body.encryptedPrivateKey = encryptedPrivateKey;
-
+    console.log("encryptedPrivateKey", wallet.address)
     // Call the next middleware function
     next();
   } catch (error) {

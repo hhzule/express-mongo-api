@@ -7,13 +7,13 @@ import WatchModel from "../models/watch.model";
 import {mint} from "../utils/calls"
 
 const addWatchesHandler = async (req: Request, res: Response) => {
-    // const id = req.body.auth
-    // const admin: any = await AdminModel.find();
-    // const adminId = admin[0]?._id.toString()
+    const id = req.body.auth
+    const admin: any = await AdminModel.find();
+    const adminId = admin[0]?._id.toString()
     const data = req.body.watches
-    // if (!id || !adminId) {
-    //     return res.send("admin undefined")
-    // } else if (id == adminId) {
+    if (!id || !adminId) {
+        return res.send("admin undefined")
+    } else if (id == adminId) {
 
 try {
 
@@ -33,10 +33,12 @@ try {
         quantity = Object.values(customObj);
 
       const trax: any = await mint(addresses,quantity, key)
+
     /**MongoDb call */
     let updatedWatch
-    if (trax.length > 0) {
+    if (trax?.length > 0) {
         let finalObj = [];
+        let resObj = []
 
         for (let i = 0; i < data.length; i++) {
           for (let j = 0; j < trax.length; j++) {
@@ -52,14 +54,18 @@ try {
             }
           }
         }
+// console.log("final", finalObj)
+        for (let i = 0; i < finalObj.length; i++) {
+            updatedWatch = await WatchModel.findByIdAndUpdate(finalObj[i]._id, { tokenId: finalObj[i].tokenId, status: "Approved" }, { new: true })
+      if(updatedWatch){
+        // console.log("first", updatedWatch)
+        updatedWatch.status = "Approved"
+        resObj.push(updatedWatch)
+      }
+          }
 
-
-        finalObj.map(async (itm: any)=>{
-            updatedWatch = await WatchModel.findByIdAndUpdate(itm._id, { $set: itm }, { new: true })
-        })
-       
         if (updatedWatch) {
-            return res.send(updatedWatch)
+            return res.send(resObj)
         }
     } else {
         return res.status(409).send("item doesn't exist");
@@ -68,9 +74,9 @@ try {
             logger.error(e);
             return res.status(409).send(e.message);
         }
-    // } else {
-    //     return res.status(401).send("not authorised");
-    // }
+    } else {
+        return res.status(401).send("not authorised");
+    }
 };
 
 const adjustCommissionHandler = async (req: Request, res: Response) => {
