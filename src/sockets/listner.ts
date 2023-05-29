@@ -1,5 +1,6 @@
 import  {ethers}   from "ethers";
-import { address_1337 } from "../../package/1337";
+// import { address_1337 } from "../../package/1337";
+import { address_80001 } from "../../package/80001";
 import abi from "../../package/ABIs/WatchNFT.json"
 import { provider } from "../utils/provider";
 import TransactionHandler  from "../controller/transaction.controller";
@@ -10,7 +11,7 @@ const listen =()=>{
     const Listen =async (chainId:string) =>{
         try {
      
-      const contract = new ethers.Contract(address_1337.NFT_addr , abi ,await  provider());
+      const contract = new ethers.Contract(address_80001.NFT_addr , abi ,await  provider());
 
         // Event filter
         const filterMint = contract.filters.Transfer('0x0000000000000000000000000000000000000000', null);
