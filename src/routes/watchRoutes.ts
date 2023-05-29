@@ -40,7 +40,7 @@ function watchRoutes(app: Express) {
     *       400:
     *         description: Bad request
     */
-  app.post('/watch', WatchController.createWatchHandler)
+  app.post('/api/watch', WatchController.createWatchHandler)
   /**
    * @openapi
    * '/watch':
@@ -67,7 +67,7 @@ function watchRoutes(app: Express) {
    *        description: Bad request
    */
 
-  app.put('/watch', WatchController.updateWatchHandler)
+  app.put('/api/watch', WatchController.updateWatchHandler)
 
   /**
  * @openapi
@@ -96,7 +96,7 @@ function watchRoutes(app: Express) {
  *        description: Bad request
  */
 
-  app.delete('/watch', WatchController.deleteWatchHandler)
+  app.delete('/api/watch', WatchController.deleteWatchHandler)
   /**
    * @openapi
    * '/watches':
@@ -118,7 +118,7 @@ function watchRoutes(app: Express) {
    *        description: Bad request
    */
 
-  app.get('/watches', WatchController.getAllWatchesHandler)
+  app.get('/api/watches', WatchController.getAllWatchesHandler)
   /**
    * @openapi
    * '/watch':
@@ -149,10 +149,10 @@ function watchRoutes(app: Express) {
    *      400:
    *        description: Bad request
    */
-  app.get('/watch', WatchController.getWatchByIdHandler)
-  app.get('/watches/:id', WatchController.getWatchByCreatorIdHandler)
-  app.get('/metadata/:id', WatchController.getWatchMetadata)
-  app.get('/watch/:id', WatchController.getWatchByTokenIdHandler)
+  app.get('/api/watch', WatchController.getWatchByIdHandler)
+  app.get('/api/watches/:id', WatchController.getWatchByCreatorIdHandler)
+  app.get('/api/metadata/:id', WatchController.getWatchMetadata)
+  app.get('/api/watch/:id', WatchController.getWatchByTokenIdHandler)
 
 
 }

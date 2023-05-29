@@ -44,7 +44,7 @@ function adminRoutes(app: Express) {
    *      400:
    *        description: unauthorised
    */
-  app.post('/adjustcommission', AdminController.adjustCommissionHandler)
+  app.post('/api/adjustcommission', AdminController.adjustCommissionHandler)
 
   /**
    * @openapi
@@ -72,7 +72,7 @@ function adminRoutes(app: Express) {
    *        description: Bad request
    */
 
-  app.post('/admin',walleteGenerate, AdminController.createAdminHandler)
+  app.post('/api/admin',walleteGenerate, AdminController.createAdminHandler)
   /**
    * @openapi
    * '/admin':
@@ -99,7 +99,7 @@ function adminRoutes(app: Express) {
    *        description: Bad request
    */
 
-  app.put('/admin', AdminController.updateAdminHandler)
+  app.put('/api/admin', AdminController.updateAdminHandler)
 
   /**
    * @openapi
@@ -129,7 +129,7 @@ function adminRoutes(app: Express) {
    */
 
 
-  app.delete('/admin', AdminController.deleteAdminHandler)
+  app.delete('/api/admin', AdminController.deleteAdminHandler)
   /**
  * @openapi
  * '/admin':
@@ -149,8 +149,8 @@ function adminRoutes(app: Express) {
  *      400:
  *        description: Bad request
  */
-  app.get('/admin', AdminController.getAdminHandler)
-  app.post('/adminwatch', AdminController.addWatchesHandler)
+  app.get('/api/admin', AdminController.getAdminHandler)
+  app.post('/api/adminwatch', AdminController.addWatchesHandler)
 
 }
 

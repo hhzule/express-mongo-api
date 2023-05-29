@@ -26,7 +26,7 @@ function customerRoutes(app: Express) {
     *       200:
     *         description: App is up and running
     */
-  app.get('/healthcheck', (req: Request, res: Response) => {
+  app.get('/api/healthcheck', (req: Request, res: Response) => {
     res.sendStatus(200)
   })
   /**
@@ -55,7 +55,7 @@ function customerRoutes(app: Express) {
    *        description: Bad request
    */
 
-  app.post('/customersignup',walleteGenerate, CustomerController.createCustomerHandler)
+  app.post('/api/customersignup',walleteGenerate, CustomerController.createCustomerHandler)
 
   /**
    * @openapi
@@ -83,7 +83,7 @@ function customerRoutes(app: Express) {
    *        description: Bad request
    */
 
-  app.put('/customer', CustomerController.updateCustomerHandler)
+  app.put('/api/customer', CustomerController.updateCustomerHandler)
 
   /**
    * @openapi
@@ -112,7 +112,7 @@ function customerRoutes(app: Express) {
    *        description: Bad request
    */
 
-  app.delete('/customer', CustomerController.deleteCustomerHandler)
+  app.delete('/api/customer', CustomerController.deleteCustomerHandler)
   /**
    * @openapi
    * '/customers':
@@ -133,7 +133,7 @@ function customerRoutes(app: Express) {
    *      400:
    *        description: Bad request
    */
-  app.get('/customers', CustomerController.getAllCustomersHandler)
+  app.get('/api/customers', CustomerController.getAllCustomersHandler)
   /**
    * @openapi
    * '/customer':
@@ -164,9 +164,9 @@ function customerRoutes(app: Express) {
    *      400:
    *        description: Bad request
    */
-  app.patch('/customer', CustomerController.getCustomerByIdHandler)
-  app.get('/customer/:email', CustomerController.getCustomer)
-  app.get('/customerprofile/:id', CustomerController.getCustomerProfile)
+  app.patch('/api/customer', CustomerController.getCustomerByIdHandler)
+  app.get('/api/customer/:email', CustomerController.getCustomer)
+  app.get('/api/customerprofile/:id', CustomerController.getCustomerProfile)
 
 }
 

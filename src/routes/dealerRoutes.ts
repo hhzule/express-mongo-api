@@ -40,7 +40,7 @@ function dealerRoutes(app: Express) {
     *        description: validation error, required key missing
     */
 
-  app.post('/dealer', walleteGenerate,DealerController.createDealerHandler)
+  app.post('/api/dealer', walleteGenerate,DealerController.createDealerHandler)
   /**
    * @openapi
    * '/dealer':
@@ -67,7 +67,7 @@ function dealerRoutes(app: Express) {
    *        description: Bad request
    */
 
-  app.put('/dealer', DealerController.updateDealerHandler)
+  app.put('/api/dealer', DealerController.updateDealerHandler)
 
   /**
   * @openapi
@@ -98,7 +98,7 @@ function dealerRoutes(app: Express) {
   *      400:
   *        description: Bad request
   */
-  app.delete('/dealer', DealerController.deleteDealerHandler)
+  app.delete('/api/dealer', DealerController.deleteDealerHandler)
 
   /**
    * @openapi
@@ -133,7 +133,7 @@ function dealerRoutes(app: Express) {
    *        description: Bad request
    */
 
-  app.post('/dealers', DealerController.getAllDealersHandler)
+  app.post('/api/dealers', DealerController.getAllDealersHandler)
   /**
    * @openapi
    * '/dealer':
@@ -168,7 +168,7 @@ function dealerRoutes(app: Express) {
    *        description: Bad request
    */
 
-  app.get('/dealer', DealerController.getDealerByIdHandler)
+  app.get('/api/dealer', DealerController.getDealerByIdHandler)
 }
 
 export default dealerRoutes

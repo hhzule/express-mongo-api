@@ -100,7 +100,7 @@ const getWatchMetadata = async (req: Request, res: Response) => {
                 let metadata = {
                     name:Watch.name,
                     image: Watch.imgUrl,
-                    description:`Created by ${Watch.creator}`
+                    description:`innovative NFT explorer, users can dive into a vast collection of watch-themed NFTs, gaining insights, discovering rare pieces, and immersing themselves in the captivating world of horology.`
                 }
                 return res.send(metadata)
             }
