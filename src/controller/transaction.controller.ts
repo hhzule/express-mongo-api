@@ -1,6 +1,9 @@
 import { Request, Response } from 'express';
 import TransactionModel , {TransactionDocument} from '../models/transaction.model';
 import WatchModel , {WatchDocument} from '../models/watch.model';
+import  AdminModel from '../models/admin.model';
+import  customerModel from '../models/customer.model';
+import  dealerModel from '../models/dealer.model';
 import  {generateQRCodeWithUrl} from "./../utils/QRcodeGenerator"
 
 const createTransactionHandler = async (req: Request, res: Response) => {
@@ -62,25 +65,88 @@ const getAllTransactionsHandler = async (req: Request, res: Response) => {
     }
   };
   
-  // Controller to get transactions by tokenId
   const getTransactionByTokenIdHandler = async (req: Request, res: Response) => {
     const tokenId = req.params.tokenId;
-     const TID = Number(tokenId)
-     console.log("tokenId", tokenId)
+    const TID = Number(tokenId);
+    
+  
     try {
       // Retrieve transactions with the specified tokenId from the database
-      const transactions = await TransactionModel.find({ tokenId });
+      let transactions = await TransactionModel.find({ tokenId });
   
       // If no transactions are found, return a not found response
       if (transactions.length === 0) {
         return res.status(404).json({ error: 'No transactions found for the specified tokenId' });
       }
   
-      // Retrieve watch details (name and owner) based on the tokenId from the watches model
-      const watchDetails = await WatchModel.findOne({ tokenId });
-      console.log("detail", watchDetails)
+      
+      
   
-      // Prepare the response object by combining transaction data with watch details
+      // Prepare an array to store modified transactions
+      const modifiedTransactions: TransactionDocument[] = [];
+  
+      // Retrieve the admin with matching walletAddress
+      if(true){
+
+        for (let i = 0; i < transactions.length; i++) {
+          const transaction = transactions[i];
+          console.log("log", transaction?.to, transaction?.from);
+        
+          const admin = await AdminModel.findOne({ walletAddress: { $in: [transaction?.to, transaction?.from] } });
+          console.log(admin);
+        
+          const dealer = await dealerModel.findOne({ walletAddress: { $in: [transaction?.to, transaction?.from] } });
+          console.log(dealer);
+        
+          const customer = await customerModel.findOne({ walletAddress: { $in: [transaction?.to, transaction?.from] } });
+          console.log(customer);
+        
+          if (admin) {
+            if (transaction.to.toLowerCase() === admin?.walletAddress?.toLowerCase()) {
+              console.log("log", transaction.to.toLowerCase(), admin?.walletAddress?.toLowerCase());
+              transaction.to = admin.name;
+            }
+            if (transaction.from.toLowerCase() === admin?.walletAddress?.toLowerCase()) {
+              transaction.from = admin.name;
+            }
+          }
+        
+          if (dealer) {
+            if (transaction.to.toLowerCase() === dealer?.walletAddress?.toLowerCase()) {
+              transaction.to = dealer.name;
+            }
+            if (transaction.from.toLowerCase() === dealer?.walletAddress?.toLowerCase()) {
+              transaction.from = dealer.name;
+            }
+          }
+        
+          if (customer) {
+            if (transaction.to.toLowerCase() === customer?.walletAddress?.toLowerCase()) {
+              transaction.to = customer.name;
+            }
+            if (transaction.from.toLowerCase() === customer?.walletAddress?.toLowerCase()) {
+              transaction.from = customer.name;
+            }
+          }
+        
+          if (transaction.to === "0x0000000000000000000000000000000000000000") {
+            transaction.to = "Contract";
+          }
+        
+          if (transaction.from === "0x0000000000000000000000000000000000000000") {
+            transaction.from = "Contract";
+          }
+        
+          transactions[i] = transaction;
+        }
+      }
+  
+  
+      // Prepare the response object by combining modified transaction data with watch details
+      console.log("asdasdasd",transactions) 
+     // Retrieve watch details (name and owner) based on the tokenId from the watches model
+     const watchDetails = await WatchModel.findOne({ tokenId });
+
       const response: {
         transactions: TransactionDocument[];
         watchDetails: WatchDocument | null;
@@ -90,12 +156,14 @@ const getAllTransactionsHandler = async (req: Request, res: Response) => {
       };
   
       // Return the response as JSON
+      console.log("responsessssssssss",response)
       return res.send(response);
     } catch (error: any) {
       console.error(error);
       return res.status(500).json({ error: 'Internal Server Error' });
     }
   };
+  
 
 
   

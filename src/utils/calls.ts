@@ -11,11 +11,12 @@ console.log("minting..")
         let tx = await watchNFT.mintNFT(adresses, quantity)
         const receipt = await tx.wait();
         console.log("minting..done receipt.blockNumber", receipt.blockNumber)
+        console.log('receipt:', receipt);
         const filter = watchNFT.filters.Transfer(); // Replace 'YourEventName' with the actual event name emitted by your contract
 
         // Retrieve the events using the event filter
         const events = await watchNFT.queryFilter(filter, receipt.blockNumber, receipt.blockHash);
-
+        console.log('events:', events);
         let result: any = []
         events.map((item: any) => {
             // console.log("item", item)
@@ -24,7 +25,7 @@ console.log("minting..")
                 tokenId: (item.args[2]).toString()
             })
         });
-        // console.log('Args:', result);
+         console.log('Args:', result);
         return result
     } catch (error) {
         console.log("minting failed")
