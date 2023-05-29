@@ -13,7 +13,7 @@ export type OutputObj = {
 }
 
 const createCustomerHandler = async (req: Request, res: Response) => {
-    console.log("api ran",req.body);
+    // console.log("api ran",req.body);
     let body = req.body;
     body["walletAddress"] = req.body.walletAddress;
     body["encryptedPrivateKey"] = req.body.encryptedPrivateKey;
@@ -84,12 +84,12 @@ const getCustomerByIdHandler = async (req: Request, res: Response) => {
         let Customer
         if (mongoose.Types.ObjectId.isValid(id)) {
             Customer = await CustomerModel.findById(id)
-            console.log("customer", Customer)
+            // console.log("customer", Customer)
             if (Customer) {
                 console.log("Customer found")
                 return res.send(omit(Customer.toObject(), "password"))
             } else {
-                console.log("Customer not found")
+                // console.log("Customer not found")
                 return res.status(401).send({
                     message: "User not found"
                 })
@@ -106,7 +106,7 @@ const getCustomer = async (req: Request, res: Response) => {
     try { /**MongoDb call */
            
           const user = await CustomerModel.findOne({email: email})
-             console.log("user", user)
+            //  console.log("user", user)
         if (user === null) {
                     return res.status(401).send({
                         message: "Customer not found"
@@ -123,7 +123,36 @@ const getCustomer = async (req: Request, res: Response) => {
         }
 };
 
+const getCustomerProfile = async (req: Request, res: Response) => {
+    const id = req.params.id
+    try { /**MongoDb call */
+         let Customer
+         if (mongoose.Types.ObjectId.isValid(id)) {
+             Customer = await CustomerModel.findById(id)
+             // console.log("customer", Customer)
+             if (Customer) {
+                 console.log("Customer found")
+                 return res.send(omit(Customer.toObject(), "password"))
+             } else {
+                 // console.log("Customer not found")
+                 return res.status(401).send({
+                     message: "User not found"
+                 })
+             }
+         }
+
+        } catch (e: any) {
+            logger.error(e);
+            return res.status(409).send(e.message);
+        }
+};
+
+
+
+
+
 export default {
+    getCustomerProfile,
     getCustomer,
     createCustomerHandler,
     getAllCustomersHandler,

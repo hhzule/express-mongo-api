@@ -166,6 +166,7 @@ function customerRoutes(app: Express) {
    */
   app.patch('/customer', CustomerController.getCustomerByIdHandler)
   app.get('/customer/:email', CustomerController.getCustomer)
+  app.get('/customerprofile/:id', CustomerController.getCustomerProfile)
 
 }
 

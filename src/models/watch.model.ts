@@ -19,6 +19,7 @@ export interface WatchesInput {
     feature: string;
     tokenId: string;
     holderAddress: string;
+    qrcode: string
 }
 
 export interface WatchDocument extends WatchesInput, mongoose.Document {
@@ -103,6 +104,10 @@ const watchSchema = new mongoose.Schema(
             type: String,
             required: [true, "Please Wallet Address"],
         },
+        qrcode:{
+            type: String,
+            // required: [true, "Please Wallet Address"],
+        }
     },
     {
         timestamps: true,

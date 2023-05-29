@@ -6,10 +6,11 @@ import { wallet } from "./wallet";
 
 export const mint = async (adresses:string[] , quantity:number[] , key : string) => {
     try {
-
+console.log("minting..")
         const watchNFT = new ethers.Contract(address_1337.NFT_addr , abi ,await  wallet(key));
         let tx = await watchNFT.mintNFT(adresses, quantity)
         const receipt = await tx.wait();
+        console.log("minting..done receipt.blockNumber", receipt.blockNumber)
         const filter = watchNFT.filters.Transfer(); // Replace 'YourEventName' with the actual event name emitted by your contract
 
         // Retrieve the events using the event filter
@@ -26,6 +27,6 @@ export const mint = async (adresses:string[] , quantity:number[] , key : string)
         // console.log('Args:', result);
         return result
     } catch (error) {
-        
+        console.log("minting failed")
     }
 } 

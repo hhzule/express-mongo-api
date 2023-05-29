@@ -88,22 +88,22 @@ const deleteDealerHandler = async (req: Request, res: Response) => {
     const dealerId = req.body._id
     const admin: any = await AdminModel.find();
     const adminId = admin[0]?._id.toString()
-    console.log("first")
+    // console.log("first")
     if (!id || !adminId) {
         return res.send("admin undefined")
     } else if (id == adminId) {
         try {
-            console.log("first")
+            // console.log("first")
             /**MongoDb call */
             let deletedDealer
             if (mongoose.Types.ObjectId.isValid(dealerId)) {
                 deletedDealer = await DealerModel.findByIdAndRemove(dealerId)
-                console.log("sec")
+                // console.log("sec")
                 if (deletedDealer) {
                     return res.send(deletedDealer)
                 }
             } else {
-                console.log("thi")
+                // console.log("thi")
                 return res.status(409).send("no such dealer exits")
             }
         } catch (e: any) {

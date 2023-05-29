@@ -1,8 +1,13 @@
 import * as qrcode from 'qrcode';
 
-async function generateQRCodeWithUrl(url: string, filePath: string): Promise<void> {
+// interface Options extends qrcode.QRCodeRenderersOptions{
+//   type?: string,
+//   quality?: number
+// }
+
+async function generateQRCodeWithUrl(url: string): Promise<void> {
   try {
-    const qrCodeOptions: qrcode.QRCodeRenderersOptions = {
+    const qrCodeOptions: any = {
       type: 'png', // Output image type
       quality: 0.8, // Image quality (0.1 to 1.0)
       margin: 1, // QR code margin in modules

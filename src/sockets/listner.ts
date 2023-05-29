@@ -28,13 +28,14 @@ const listen =()=>{
           const res: Response = {
             status: () => res,
             json: (data:any) => {
-              console.log('Transaction created successfully!', data);
+              console.log('Transaction created successfully first !', data);
               return res;
             }
           } as unknown as Response;
           
-            await TransactionHandler.createTransactionHandler(req, res)
-        }
+           let response =  await TransactionHandler.createTransactionHandler(req, res)
+            console.log('Transaction obj !', response);
+          }
           });
 
 
@@ -56,11 +57,12 @@ const listen =()=>{
                   const res: Response = {
                     status: () => res,
                     json: (data:any) => {
-                      console.log('Transaction created successfully!', data);
+                      console.log('Transaction created successfully! second', data);
                       return res;
                     }
                   } as unknown as Response;
-                  await TransactionHandler.appendTransactionHandler(req, res)
+                 const result =  await TransactionHandler.appendTransactionHandler(req, res)
+                 console.log("result of append", result)
             }
                
               });

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import TransactionModel , {TransactionDocument} from '../models/transaction.model';
 import WatchModel , {WatchDocument} from '../models/watch.model';
+import  {generateQRCodeWithUrl} from "./../utils/QRcodeGenerator"
 
 const createTransactionHandler = async (req: Request, res: Response) => {
   try {
@@ -8,7 +9,7 @@ const createTransactionHandler = async (req: Request, res: Response) => {
 
     // Create a new transaction
     const transaction = await TransactionModel.create(req.body);
-
+console.log("transaction created from controller", transaction)
     // Update the holderAddress in the WatchModel for the corresponding tokenId
     // await WatchModel.updateOne({ tokenId }, { holderAddress:to });
 
@@ -27,11 +28,15 @@ const appendTransactionHandler = async (req: Request, res: Response) => {
 
     // Create a new transaction
     const transaction = await TransactionModel.create(req.body);
+    console.log("append transaction ran")
+    let qrUrl = `http://localhost/watchmetadata/${tokenId}`
+    console.log("qrUrl ran", qrUrl)
+    const qr = await generateQRCodeWithUrl(qrUrl)
 
    // Update the holderAddress in the WatchModel for the corresponding tokenId
-    await WatchModel.updateOne({ tokenId }, { holderAddress:to });
-
-
+   const resp = await WatchModel.updateOne({ tokenId }, { holderAddress:to }, {qr});
+   
+   console.log("resp ran", resp)
     // Return the created transaction as the response
     return res.status(201).json(transaction);
   } catch (error: any) {
@@ -60,8 +65,8 @@ const getAllTransactionsHandler = async (req: Request, res: Response) => {
   // Controller to get transactions by tokenId
   const getTransactionByTokenIdHandler = async (req: Request, res: Response) => {
     const tokenId = req.params.tokenId;
-    // const TID =tokenId.toString();
-  
+     const TID = Number(tokenId)
+     console.log("tokenId", tokenId)
     try {
       // Retrieve transactions with the specified tokenId from the database
       const transactions = await TransactionModel.find({ tokenId });

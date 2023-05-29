@@ -5,6 +5,7 @@ import AdminModel from "../models/admin.model"
 import { omit } from "lodash";
 import WatchModel from "../models/watch.model";
 import {mint} from "../utils/calls"
+import  {generateQRCodeWithUrl} from "./../utils/QRcodeGenerator"
 
 const addWatchesHandler = async (req: Request, res: Response) => {
     const id = req.body.auth
@@ -16,7 +17,7 @@ const addWatchesHandler = async (req: Request, res: Response) => {
     } else if (id == adminId) {
 
 try {
-
+console.log("starting sorting")
         let key: string = "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"
         let addresses = [];
         let quantity : number[]= [];
@@ -31,21 +32,31 @@ try {
         });
         addresses = Object.keys(customObj);
         quantity = Object.values(customObj);
+        console.log("starting mintimg")
+        let trax: any ;
+        try {
+         trax = await mint(addresses,quantity, key)
+            console.log("minting success", trax)   
+        } catch (error) {
+            console.log("minting failed")  
+            logger.error(error);
+            return res.status(409).send("minting Failed");
+        }
 
-      const trax: any = await mint(addresses,quantity, key)
 
     /**MongoDb call */
     let updatedWatch
     if (trax?.length > 0) {
         let finalObj = [];
         let resObj = []
-
+        console.log("updating obj to add tokenId")
         for (let i = 0; i < data.length; i++) {
           for (let j = 0; j < trax.length; j++) {
             if (
               data[i].holderAddress.toLocaleLowerCase() ===
               trax[j].to.toLocaleLowerCase()
             ) {
+   
               let newObj = data[i];
               newObj.tokenId = trax[j].tokenId;
               finalObj.push(newObj);
@@ -56,16 +67,20 @@ try {
         }
 // console.log("final", finalObj)
         for (let i = 0; i < finalObj.length; i++) {
-            updatedWatch = await WatchModel.findByIdAndUpdate(finalObj[i]._id, { tokenId: finalObj[i].tokenId, status: "Approved" }, { new: true })
-      if(updatedWatch){
-        // console.log("first", updatedWatch)
-        updatedWatch.status = "Approved"
-        resObj.push(updatedWatch)
-      }
+            console.log("adding qrcode")
+            let qrUrl = `http://localhost/watchmetadata/${finalObj[i].tokenId}`
+            const qrcode = await generateQRCodeWithUrl(qrUrl)
+            console.log("adding updated watch to db")
+            updatedWatch = await WatchModel.findByIdAndUpdate(finalObj[i]._id, { tokenId: finalObj[i].tokenId, status: "Approved" , qrcode}, { new: true })
+    //   if(updatedWatch){
+    //     // console.log("first", updatedWatch)
+    //     updatedWatch.status = "Approved"
+    //     resObj.push(updatedWatch)
+    //   }
           }
 
         if (updatedWatch) {
-            return res.send(resObj)
+            return res.send(updatedWatch)
         }
     } else {
         return res.status(409).send("item doesn't exist");
@@ -106,9 +121,10 @@ const adjustCommissionHandler = async (req: Request, res: Response) => {
 };
 
 const createAdminHandler = async (req: Request, res: Response) => {
-    console.log(req.body);
+    // console.log(req.body);
     try { /**MongoDb call */
         const number = await AdminModel.countDocuments();
+
         if (number == 1) {
             return res.send("admin already exist")
         } else if (number < 1) {
@@ -177,7 +193,7 @@ const deleteAdminHandler = async (req: Request, res: Response) => {
                 if (deletedAdmin) {
                     return res.send(deletedAdmin)
                 } else {
-                    return res.send("no such customer exits")
+                    return res.send("no such admin exits")
                 }
             }
         } catch (e: any) {

@@ -7,7 +7,7 @@ import TransactionModel from "../models/transaction.model";
 
 
 const createWatchHandler = async (req: Request, res: Response) => {
-    console.log(req.body);
+    // console.log(req.body);
     try { /**MongoDb call */
         const watch = await WatchModel.create(req.body)
         return res.send(watch)
@@ -21,7 +21,7 @@ const createWatchHandler = async (req: Request, res: Response) => {
 const getAllWatchesHandler = async (req: Request, res: Response) => {
     try {   /**MongoDb call */
          const transactions = await TransactionModel.find();
-        console.log(transactions)
+        // console.log(transactions)
         const watches = await WatchModel.find()
         return res.send(watches)
     } catch (e: any) {
@@ -135,7 +135,29 @@ const getWatchByCreatorIdHandler = async (req: Request, res: Response) => {
     }
 };
 
+
+const getWatchByTokenIdHandler = async (req: Request, res: Response) => {
+    const id = req.params.id
+    try {
+        /**MongoDb call */
+        let Watches
+            Watches = await WatchModel.find({tokenId: id})
+            if (Watches) {
+                return res.send(Watches)
+            }
+
+            return res.send("no watch exits")
+
+    } catch (e: any) {
+        logger.error(e);
+        return res.status(409).send(e.message);
+    }
+};
+
+
+
 export default {
+    getWatchByTokenIdHandler,
     getWatchMetadata,
     createWatchHandler,
     getAllWatchesHandler,
