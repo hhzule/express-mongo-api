@@ -88,12 +88,7 @@ const dealerSchema = new mongoose.Schema(
             type: String,
         },
         encryptedPrivateKey: {
-            type: String,        walletAddress: {
-                type: String,
-            },
-            encryptedPrivateKey: {
-                type: String,
-            },
+            type: String,      
         },
 
 
