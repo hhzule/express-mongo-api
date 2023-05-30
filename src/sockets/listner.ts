@@ -44,7 +44,7 @@ const listen =()=>{
 
           contract.on('Transfer', async ( from: string, to: string, tokenId: string,event) => {
             if (from !=  '0x0000000000000000000000000000000000000000') {
-              console.log("HEREaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaavvvvvvvvvvvvvvvvvvvvvvvaaaaaaaaaaaa")
+              console.log("HEREaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdasdaaaaaaaaaavvvvvvvvvvvvvvvvvvvvvvvaaaaaaaaaaaa")
                 console.log('Transfer Event:');
 
                 // console.log('Result:', from);
