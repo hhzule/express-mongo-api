@@ -70,11 +70,11 @@ const dealerSchema = new mongoose.Schema(
         },
         brandName: {
             type: String,
-            required: [true, "Please enter brand name"],
+            // required: [true, "Please enter brand name"],
         },
         serialNumber: {
             type: String,
-            required: [true, "Please enter name"],
+            // required: [true, "Please enter name"],
         },
         model: {
             type: String,
