@@ -9,10 +9,10 @@ import  {generateQRCodeWithUrl} from "./../utils/QRcodeGenerator"
 const createTransactionHandler = async (req: Request, res: Response) => {
   try {
     const { tokenId, to } = req.body;
-
+ console.log("RAWWWWWWWWW")
     // Create a new transaction
     const transaction = await TransactionModel.create(req.body);
-console.log("transaction created from controller", transaction)
+     console.log("transaction created from controller", transaction)
     // Update the holderAddress in the WatchModel for the corresponding tokenId
     // await WatchModel.updateOne({ tokenId }, { holderAddress:to });
 
@@ -90,7 +90,6 @@ const getAllTransactionsHandler = async (req: Request, res: Response) => {
 
         for (let i = 0; i < transactions.length; i++) {
           const transaction = transactions[i];
-          console.log("log", transaction?.to, transaction?.from);
         
           const admin = await AdminModel.findOne({ walletAddress: { $in: [transaction?.to, transaction?.from] } });
           console.log(admin);
@@ -103,7 +102,6 @@ const getAllTransactionsHandler = async (req: Request, res: Response) => {
         
           if (admin) {
             if (transaction.to.toLowerCase() === admin?.walletAddress?.toLowerCase()) {
-              console.log("log", transaction.to.toLowerCase(), admin?.walletAddress?.toLowerCase());
               transaction.to = admin.name;
             }
             if (transaction.from.toLowerCase() === admin?.walletAddress?.toLowerCase()) {
@@ -143,7 +141,6 @@ const getAllTransactionsHandler = async (req: Request, res: Response) => {
   
   
       // Prepare the response object by combining modified transaction data with watch details
-      console.log("asdasdasd",transactions) 
      // Retrieve watch details (name and owner) based on the tokenId from the watches model
      const watchDetails = await WatchModel.findOne({ tokenId });
 
@@ -156,7 +153,6 @@ const getAllTransactionsHandler = async (req: Request, res: Response) => {
       };
   
       // Return the response as JSON
-      console.log("responsessssssssss",response)
       return res.send(response);
     } catch (error: any) {
       console.error(error);

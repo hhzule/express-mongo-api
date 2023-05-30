@@ -20,6 +20,7 @@ const listen =()=>{
         // Listen to Transfer events
         contract.on(filterMint, async ( from: string, to: string, tokenId: string,event) => {
             if (from ===  '0x0000000000000000000000000000000000000000') {
+              console.log("HEREaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
          const body = { tokenId , from, to , hash : event.transactionHash};
 
          const req: Request = {
@@ -29,13 +30,13 @@ const listen =()=>{
           const res: Response = {
             status: () => res,
             json: (data:any) => {
-              console.log('Transaction created successfully first !', data);
+         //     console.log('Transaction created successfully first !', data);
               return res;
             }
           } as unknown as Response;
           
-           let response =  await TransactionHandler.createTransactionHandler(req, res)
-            console.log('Transaction obj !', response);
+       //    let response =  await TransactionHandler.createTransactionHandler(req, res)
+         //   console.log('Transaction obj !', response);
           }
           });
 
@@ -43,6 +44,7 @@ const listen =()=>{
 
           contract.on('Transfer', async ( from: string, to: string, tokenId: string,event) => {
             if (from !=  '0x0000000000000000000000000000000000000000') {
+              console.log("HEREaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaavvvvvvvvvvvvvvvvvvvvvvvaaaaaaaaaaaa")
                 console.log('Transfer Event:');
 
                 // console.log('Result:', from);
