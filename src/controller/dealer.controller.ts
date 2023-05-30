@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import mongoose from "mongoose";
 import logger from "../utils/logger";
-import { createDealer } from "../service/dealer.service"
 import DealerModel from "../models/dealer.model";
 import AdminModel from "../models/admin.model"
 import { omit } from "lodash"
