@@ -17,7 +17,9 @@ const createDealerHandler = async (req: Request, res: Response) => {
 
         try { /**MongoDb call */
 
-            const dealer = await createDealer(req.body)
+
+
+            const dealer =  await DealerModel.create(req.body);
             return res.send(omit(dealer.toObject(), "password"))
         } catch (e: any) {
             logger.error(e);
