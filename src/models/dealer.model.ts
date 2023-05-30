@@ -11,8 +11,8 @@ export interface DealerInput {
     phoneNumber: string;
     emergencyNumber: string;
     businessAddress: string;
-    brandName: string;
-    serialNumber: string;
+    brandName?: string;
+    serialNumber?: string;
     model: string;
     offers: string;
     walletAddress?: string;
