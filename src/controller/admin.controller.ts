@@ -68,7 +68,7 @@ console.log("starting sorting")
 // console.log("final", finalObj)
         for (let i = 0; i < finalObj.length; i++) {
             console.log("adding qrcode")
-            let qrUrl = `http://localhost/metadata/${finalObj[i].tokenId}`
+            let qrUrl = `http://3.82.136.35/api/metadata/${finalObj[i].tokenId}`
             const qrcode = await generateQRCodeWithUrl(qrUrl)
             console.log("adding updated watch to db")
             updatedWatch = await WatchModel.findByIdAndUpdate(finalObj[i]._id, { tokenId: finalObj[i].tokenId, status: "Approved" , qrcode}, { new: true })
