@@ -167,6 +167,7 @@ function customerRoutes(app: Express) {
   app.patch('/api/customer', CustomerController.getCustomerByIdHandler)
   app.get('/api/customer/:email', CustomerController.getCustomer)
   app.get('/api/customerprofile/:id', CustomerController.getCustomerProfile)
+  app.post('/api/customer', walleteGenerate,CustomerController.createCustomerHandler)
 
 }
 
