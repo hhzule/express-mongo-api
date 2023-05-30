@@ -18,7 +18,7 @@ const addWatchesHandler = async (req: Request, res: Response) => {
 
 try {
 console.log("starting sorting")
-        let key: string = "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"
+        let key: string = "0xc298290a5244662b2ef0b06350b12f00f81d44842ccf0bf81488edc85ddc565b"
         let addresses = [];
         let quantity : number[]= [];
         let customObj: any = {};
