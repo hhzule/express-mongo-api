@@ -8,8 +8,8 @@ import { omit } from "lodash"
 import AWS from "aws-sdk"
 
 let  myConfig = new AWS.Config({
-    accessKeyId: 'AKIA532CUIPUBQ7KACWN',
-     secretAccessKey: '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',
+    accessKeyId: '',
+     secretAccessKey: '',
   });
   AWS.config.update({region: 'us-east-2'});
 
