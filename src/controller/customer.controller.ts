@@ -8,6 +8,7 @@ export type OutputObj = {
     email?: string;
     name?: string;
     password?: string;
+    phone?: string;
     walletAddress?: string;
     encryptedPrivateKey?: string;
 }
@@ -15,8 +16,7 @@ export type OutputObj = {
 const createCustomerHandler = async (req: Request, res: Response) => {
     // console.log("api ran",req.body);
     let body = req.body;
-    // body["walletAddress"] = req.body.walletAddress;
-    // body["encryptedPrivateKey"] = req.body.encryptedPrivateKey;
+
     
 
     try { /**MongoDb call */

@@ -4,6 +4,7 @@ export interface CustomerInput {
     email: string;
     name: string;
     password: string;
+    phone: string;
     walletAddress?: string;
     encryptedPrivateKey?: string;
 
@@ -34,6 +35,11 @@ const userSchema = new mongoose.Schema(
             required: [true, "Please enter password"],
             minlength: [6, "minimum password length is 6 characters"]
         },
+        phone: {
+            type: String,
+            required: [true, "Please enter phone number"],
+        },
+
         walletAddress: {
             type: String,
         },

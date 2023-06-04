@@ -6,7 +6,7 @@ export interface WatchesInput {
     price: number;
     owner: string;
     status: string;
-    imgUrl: string;
+    imgUrl: string[];
     creator: mongoose.Schema.Types.ObjectId,
     serialNumber: string;
     caseMaterial: string;
@@ -56,7 +56,7 @@ const watchSchema = new mongoose.Schema(
             default: "pending"
         },
         imgUrl: {
-            type: String,
+            type: [String],
             required: [true, "Please enter image"],
         },
         serialNumber: {

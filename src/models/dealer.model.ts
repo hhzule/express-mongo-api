@@ -12,8 +12,8 @@ export interface DealerInput {
     emergencyNumber: string;
     businessAddress: string;
     brandName?: string;
-    serialNumber?: string;
-    model?: string;
+    // serialNumber?: string;
+    // model?: string;
     offers: string;
     walletAddress?: string;
     encryptedPrivateKey?: string;
@@ -72,14 +72,14 @@ const dealerSchema = new mongoose.Schema(
             type: String,
             // required: [true, "Please enter brand name"],
         },
-        serialNumber: {
-            type: String,
-            // required: [true, "Please enter name"],
-        },
-        model: {
-            type: String,
-            // required: [true, "Please enter  model"],
-        },
+        // serialNumber: {
+        //     type: String,
+        //     // required: [true, "Please enter name"],
+        // },
+        // model: {
+        //     type: String,
+        //     // required: [true, "Please enter  model"],
+        // },
         offers: {
             type: String,
             required: [true, "Please enter offers"],
