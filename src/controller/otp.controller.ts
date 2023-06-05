@@ -8,10 +8,11 @@ import { omit } from "lodash"
 import AWS from "aws-sdk"
 
 let  myConfig = new AWS.Config({
-    accessKeyId: '',
-     secretAccessKey: '',
+    accessKeyId: process.env.AWS_SECRET_ACCESS_KEY,
+     secretAccessKey: process.env.AWS_KEY_ID
+
   });
-  AWS.config.update({region: 'us-east-2'});
+  AWS.config.update({region: 'us-east-1'});
 
 const optSendSmsHandler = async (req: Request, res: Response) => {
     console.log(req.body)
@@ -32,7 +33,7 @@ const optSendSmsHandler = async (req: Request, res: Response) => {
 
 try {
     const optAuth: any = await OtpModel.findOne({email})
-    // console.log("user", optAuth)
+    console.log("user", optAuth)
     if(optAuth && optAuth.status === "verified"){
         return res.status(200).send("User already exists with this Email");
     }else if (optAuth && optAuth.status === "pending"){
@@ -69,10 +70,11 @@ try {
            }
 
             }else{
-
+// console.log("i ran")
                 // Create promise and SNS service object
                 var publishTextPromise = new AWS.SNS({apiVersion: '2010-03-31'}).publish(params).promise();
                 // Handle promise's fulfilled/rejected states
+                // console.log("publish", publishTextPromise)
                 resData = await publishTextPromise
                 console.log("MessageID is " + resData.MessageId); 
                 try { /**MongoDb call */
