@@ -106,11 +106,29 @@ const getMessageSenderHandler = async (req: Request, res: Response) => {
         }
         
 };
+const updateHandler = async (req: Request, res: Response) => {
+
+    // const id = req.params.id
+    //  let resData;
+    //     try { /**MongoDb call */
+    //         const message = await MessageModel.find({senderId:id})
+    //                 // return res.status(401).send({
+    //                 //     message: "Api error"
+    //                 // })
+    //                 return res.send(message)
+
+    //     } catch (e: any) {
+    //         logger.error(e);
+    //         return res.status(409).send(e.message);
+    //     }
+        
+};
 
 
 
 export default {
     createMessageHandler,
     getMessageReceiverHandler ,
-    getMessageSenderHandler
+    getMessageSenderHandler,
+    updateHandler
 }
