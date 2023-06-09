@@ -153,6 +153,8 @@ function watchRoutes(app: Express) {
   app.get('/api/watches/:id', WatchController.getWatchByCreatorIdHandler)
   app.get('/api/metadata/:id', WatchController.getWatchMetadata)
   app.get('/api/watch/:id', WatchController.getWatchByTokenIdHandler)
+  app.post('/api/watchsearch', WatchController.getWatchBySearchHandler)
+
 
 
 }

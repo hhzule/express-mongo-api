@@ -154,9 +154,52 @@ const getWatchByTokenIdHandler = async (req: Request, res: Response) => {
     }
 };
 
+// ********************************************
+// wath search controller
+// ********************************************
+const getWatchByBrandHandler = async (req: Request, res: Response) => {
+    // req.body will contain ana array ["brand","serialNumber"]
+    // if only ["brand"] then run if , if ["brand","serialNumber"] run else
+    if(req.body.length > 1){
+        const name = req.body[0]
+        try {
+        /**MongoDb call */
+        let Watches
+            Watches = await WatchModel.find({name})
+            if (Watches) {
+                return res.send(Watches)
+            }
 
+            return res.send("no watch exits")
+
+    } catch (e: any) {
+        logger.error(e);
+        return res.status(409).send(e.message);
+    }
+    }else{
+        const name = req.body[0]
+        const serialNumber = req.body[1]
+        try {
+        /**MongoDb call */
+        let Watches
+            Watches = await WatchModel.find({name, serialNumber})
+            if (Watches) {
+                return res.send(Watches)
+            }
+
+            return res.send("no watch exits")
+
+    } catch (e: any) {
+        logger.error(e);
+        return res.status(409).send(e.message);
+    }
+
+    }
+
+};
 
 export default {
+    getWatchByBrandHandler,
     getWatchByTokenIdHandler,
     getWatchMetadata,
     createWatchHandler,
