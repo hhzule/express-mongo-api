@@ -1,61 +1,72 @@
 import mongoose from "mongoose";
 import watchInput from "./watch.model"
-export interface messageInput {
-    quote: string;
-    senderId: string;
-    senderRole: string;
-    receiverId: string;
-    receiverRole: string;
-    acccept?: string;
+
+export interface Chat {
+    message: string;
+    type: string;
+    fromId: string;
+    fromEmail: string;
+    toId: string;
+    toEmail: string;
+    accept?: string;
     reject?: string;
     read?: boolean;
     watchId: string;
-
-
 }
 
+export interface messageInput {
+    firstUserId?: string;
+    secondUserId?: string;
+    secondUserEmail?: string,
+    Chat: Chat[]
+}
 export interface MessageDocument extends messageInput, mongoose.Document {
     createdAt: Date;
     updatedAt: Date;
 }
 
-const messageSchema = new mongoose.Schema(
+const chatSchema = new mongoose.Schema(
     {
-        quote: {
+        message: {
             type: String,
-            required: [true, "Please enter quote"],
+            required: [true, "Please enter message"],
         },
-        senderId: {
+        type: {
             type: String,
-            required: [true, "Please enter senderId"],
+            required: [true, "Please enter type"],
         },
-        senderEmail: {
+        fromId: {
             type: String,
-            required: [true, "Please enter senderEmail"],
+            required: [true, "Please enter fromId"],
         },
-        receiverId: {
+        fromEmail: {
             type: String,
-            required: [true, "Please enter receiverId"],
+            required: [true, "Please enter fromEmail"],
+            
         },
-        acccept: {
+        toId: {
+            type: String,
+            required: [true, "Please enter toId"],
+        },
+        toEmail: {
+            type: String,
+            required: [true, "Please enter toEmail"],
+        },
+
+        read: {
+            type: String,
+        },
+        accept: {
             type: String,
         },
         reject: {
             type: String,
         },
-        read: {
-            type: String,
-        },
         watchId: {
-            type: mongoose.Schema.Types.ObjectId,
+            // type: mongoose.Schema.Types.ObjectId,
+            type: String,
             required: [true, "Please enter watchId"],
             ref : "Watch"
-        },
-        receiverRole: {
-            type: String,
-        },
-        senderRole: {
-            type: String,
         },
     },
     {
@@ -64,7 +75,26 @@ const messageSchema = new mongoose.Schema(
 );
 
 
+const MessageSchema = new mongoose.Schema({
+    firstUserId:{
+        // type: mongoose.Schema.Types.ObjectId,
+        type: String,
+        // required: true,
+    },
+    secondUserId:{
+        // type: mongoose.Schema.Types.ObjectId,
+        type: String,
+        // required: true,
+    },
+    secondUserEmail:{
+        // type: mongoose.Schema.Types.ObjectId,
+        type: String,
+        // required: true,
+    },
+    Chat: [chatSchema],
+})
 
-const MessageModel = mongoose.model<MessageDocument>("Message", messageSchema);
+
+const MessageModel = mongoose.model<MessageDocument>("Message", MessageSchema);
 
 export default MessageModel;

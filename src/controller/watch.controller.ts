@@ -73,7 +73,8 @@ const deleteWatchHandler = async (req: Request, res: Response) => {
 };
 
 const getWatchByIdHandler = async (req: Request, res: Response) => {
-    const id = req.body._id;
+    const id = req.params.id;
+    console.log("watch ran")
     try {
         /**MongoDb call */
         let Watch
@@ -155,17 +156,24 @@ const getWatchByTokenIdHandler = async (req: Request, res: Response) => {
 };
 
 // ********************************************
-// wath search controller
+// watch search controller
 // ********************************************
-const getWatchByBrandHandler = async (req: Request, res: Response) => {
-    // req.body will contain ana array ["brand","serialNumber"]
+const getWatchBySearchHandler = async (req: Request, res: Response) => {
+    // req.body will contain an array ["brand","serialNumber"]
     // if only ["brand"] then run if , if ["brand","serialNumber"] run else
-    if(req.body.length > 1){
-        const name = req.body[0]
+   console.log("req",req.body)
+   let reqb = req.body.body
+   console.log("reqb",reqb.length)
+    if(reqb.length > 1){
+        console.log("inside if",req.body);
+        const name = reqb[0]
+        const serialNumber = reqb[1]
         try {
         /**MongoDb call */
         let Watches
-            Watches = await WatchModel.find({name})
+        Watches = await WatchModel.find({name, serialNumber})
+          
+            console.log("Watches",Watches);
             if (Watches) {
                 return res.send(Watches)
             }
@@ -177,12 +185,14 @@ const getWatchByBrandHandler = async (req: Request, res: Response) => {
         return res.status(409).send(e.message);
     }
     }else{
-        const name = req.body[0]
-        const serialNumber = req.body[1]
+        console.log("inside else",req.body);
+        const name = reqb[0]
+        console.log("name",name);
         try {
         /**MongoDb call */
         let Watches
-            Watches = await WatchModel.find({name, serialNumber})
+        Watches = await WatchModel.find({name})
+            console.log("Watches",Watches);
             if (Watches) {
                 return res.send(Watches)
             }
@@ -199,7 +209,7 @@ const getWatchByBrandHandler = async (req: Request, res: Response) => {
 };
 
 export default {
-    getWatchByBrandHandler,
+    getWatchBySearchHandler,
     getWatchByTokenIdHandler,
     getWatchMetadata,
     createWatchHandler,

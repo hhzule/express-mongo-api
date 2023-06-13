@@ -149,7 +149,7 @@ function watchRoutes(app: Express) {
    *      400:
    *        description: Bad request
    */
-  app.get('/api/watch', WatchController.getWatchByIdHandler)
+  app.get('/api/watchid/:id', WatchController.getWatchByIdHandler)
   app.get('/api/watches/:id', WatchController.getWatchByCreatorIdHandler)
   app.get('/api/metadata/:id', WatchController.getWatchMetadata)
   app.get('/api/watch/:id', WatchController.getWatchByTokenIdHandler)

@@ -3,68 +3,63 @@ import { Request, Response } from "express";
 import logger from "../utils/logger";
 import mongoose from "mongoose";
 import MessageModel from "../models/message.model"
-import CorreapondenceModel from "../models/correspodence.model"
- 
 import AWS from "aws-sdk"
-let  myConfig = new AWS.Config({
-    accessKeyId: process.env.AWS_SECRET_ACCESS_KEY,
-     secretAccessKey: process.env.AWS_KEY_ID
-  });
-  AWS.config.update({region: 'us-east-1'});
-//   quote: string;
-//   senderId: string;
-//   senderRole: string;
-//   receiverId: string;
-//   receiverRole: string;
-//   acccept?: string;
-//   reject?: string;
-//   read?: boolean;
-//   watchId: string;
+
+  const SES_CONFIG = {
+    accessKeyId: "AKIA532CUIPUCWI437NZ",
+    secretAccessKey: "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",
+    region: 'us-east-1',
+    apiVersion: '2010-12-01'
+};
 const createMessageHandler = async (req: Request, res: Response) => {
     const messageBody = req.body
+    var ses = new AWS.SES(SES_CONFIG);
     let resData
      try { /**MongoDb call */
-     const params = {
-        data:{
-            email : messageBody.senderEmail,
-            emailBody:{}
-        }
-    }
-     switch(messageBody.senderRole) {
-        case "customer":
-            resData = await CorreapondenceModel.CustomerMessagesModel.find({to: messageBody.receiverId})
-            if(resData[0].status === false){
-                var publishTextPromise = new AWS.SES({apiVersion: '2010-03-31'}).sendEmail(params).promise();
-                let resData = await publishTextPromise
-                console.log("MessageID is " + resData.MessageId); 
-                let updateStatus = await CorreapondenceModel.CustomerMessagesModel.findOneAndUpdate({to: messageBody.receiverId},{status: true})    
+     var params = {
+        Destination: { /* required */
+          ToAddresses: [
+        "hhzule@gmail.com"
+          ]
+        },
+        Message: { /* required */
+          Body: { /* required */
+            Html: {
+                Charset: 'UTF-8',
+                Data: 'This is the body of my email!',
+            },
+            Text: {
+                Charset: 'UTF-8',
+                Data: `Hello, Emelud!`,
             }
-          break;
-        case "dealer":
-            resData = await CorreapondenceModel.DealerMessagesModel.find({to: messageBody.receiverId})
-            if(resData[0].status === false){
-                var publishTextPromise = new AWS.SES({apiVersion: '2010-03-31'}).sendEmail(params).promise();
-                let resData = await publishTextPromise
-                console.log("MessageID is " + resData.MessageId); 
-                let updateStatus = await CorreapondenceModel.DealerMessagesModel.findOneAndUpdate({to: messageBody.receiverId},{status: true})
-                 
-            }
-               break;
-        case "admin":
-            resData = await CorreapondenceModel.AdminMessagesModel.find({to: messageBody.receiverId})
-            if(resData[0].status === false){
-                var publishTextPromise = new AWS.SES({apiVersion: '2010-03-31'}).sendEmail(params).promise();
-                let resData = await publishTextPromise
-                console.log("MessageID is " + resData.MessageId); 
-                let updateStatus = await CorreapondenceModel.AdminMessagesModel.findOneAndUpdate({to: messageBody.receiverId},{status: true})
-                 
-            }
+          },
+          Subject: { /* required */
+          Charset: 'UTF-8',
+          Data: `Hello, Emilus!`,
+          }
+        },
+        Source: 'hhzule@gmail.com',
+        ReplyToAddresses: []
+      };
 
-                break;
-        default:
-      }
-     const message = await MessageModel.create(messageBody)
-      console.log("message", message)
+    console.log("body", req.body)
+    let message;
+    //  const message = await MessageModel.create({firstUserId:req.body.firstUserId, secondUserId: req.body.secondUserId},{ $push:{Chat : req.body.Chat}})
+       const messageone = await MessageModel.find({firstUserId:req.body.firstUserId, secondUserId: req.body.secondUserId})
+       console.log("messageone", messageone)
+       if(messageone.length > 0){
+        console.log("from if")
+          message = await MessageModel.findOneAndUpdate({firstUserId:req.body.firstUserId, secondUserId: req.body.secondUserId},{ $push:{Chat : req.body.Chat[0]}})
+       }else{
+        console.log("from else")
+     // var publishTextPromise = ses.sendEmail(params).promise();
+    //   let resData = await publishTextPromise
+    //    console.log("MessageID is " + resData.MessageId);
+        message = await MessageModel.create(req.body)
+       }
+
+    
+    console.log("message", message)
      return res.send(message)    
         } catch (e: any) {
             logger.error(e);
@@ -77,7 +72,7 @@ const getMessageReceiverHandler = async (req: Request, res: Response) => {
     const id = req.params.id
      let resData;
         try { /**MongoDb call */
-            const message = await MessageModel.find({receiverId:id})
+            const message = await MessageModel.find({secondUserId:id}, { Chat: { $slice: -5 } } )
                     // return res.status(401).send({
                     //     message: "Api error"
                     // })
@@ -94,7 +89,7 @@ const getMessageSenderHandler = async (req: Request, res: Response) => {
     const id = req.params.id
      let resData;
         try { /**MongoDb call */
-            const message = await MessageModel.find({senderId:id})
+            const message = await MessageModel.find({firstUserId:id}, {Chat: {$slice: -5}})
                     // return res.status(401).send({
                     //     message: "Api error"
                     // })
@@ -107,24 +102,19 @@ const getMessageSenderHandler = async (req: Request, res: Response) => {
         
 };
 const updateHandler = async (req: Request, res: Response) => {
-
-    // const id = req.params.id
-    //  let resData;
-    //     try { /**MongoDb call */
-    //         const message = await MessageModel.find({senderId:id})
-    //                 // return res.status(401).send({
-    //                 //     message: "Api error"
-    //                 // })
-    //                 return res.send(message)
-
-    //     } catch (e: any) {
-    //         logger.error(e);
-    //         return res.status(409).send(e.message);
-    //     }
+try{
+    console.log("body", req.body)
+    let message;
+   
+     message = await MessageModel.findOneAndUpdate({firstUserId:req.body.firstUserId, secondUserId: req.body.secondUserId},{ $push:{Chat : req.body.Chat[0]}})
+    console.log("message", message)
+     return res.send(message)    
+        } catch (e: any) {
+            logger.error(e);
+            return res.status(409).send(e.message);
+        }   
         
 };
-
-
 
 export default {
     createMessageHandler,
@@ -132,3 +122,5 @@ export default {
     getMessageSenderHandler,
     updateHandler
 }
+
+
