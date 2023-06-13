@@ -6,10 +6,7 @@ import MessageModel from "../models/message.model"
 import AWS from "aws-sdk"
 
   const SES_CONFIG = {
-    accessKeyId: "AKIA532CUIPUCWI437NZ",
-    secretAccessKey: "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",
-    region: 'us-east-1',
-    apiVersion: '2010-12-01'
+
 };
 const createMessageHandler = async (req: Request, res: Response) => {
     const messageBody = req.body
